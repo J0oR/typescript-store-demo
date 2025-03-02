@@ -61,7 +61,9 @@ const products = [];
 const processoRiciclo = new ProcessoProduzione(dettagliProcesso.nome, dettagliProcesso.descrizione);
 const clients = [];
 const orders = [];
+export let newOrder = ["", ""];
 localStorage.setItem("processoRiciclo", JSON.stringify(processoRiciclo));
+// order.ts
 /**
  *
  *

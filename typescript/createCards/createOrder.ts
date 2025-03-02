@@ -1,22 +1,12 @@
 import { Prodotto } from "../classes/classes.js";
 import { Cliente } from "../classes/classes.js";
 
-export function handleOrderFormSubmit(
-  event: Event,
-  clients: Cliente[],
-  products: Prodotto[]
-): Prodotto | undefined {
+export function handleOrderFormSubmit(event: Event, clients: Cliente[], products: Prodotto[]): Prodotto | undefined {
   event.preventDefault();
 
   const orderForm = document.getElementById("orderForm") as HTMLElement;
-  const userID = parseInt(
-    (orderForm.querySelector("#userID") as HTMLSelectElement).value,
-    10
-  );
-  const productID = parseInt(
-    (orderForm.querySelector("#productID") as HTMLSelectElement).value,
-    10
-  );
+  const userID = parseInt((orderForm.querySelector("#userID") as HTMLSelectElement).value,10);
+  const productID = parseInt((orderForm.querySelector("#productID") as HTMLSelectElement).value,10);
 
   let selectedUser = clients.find((client) => client.ID === userID);
   let selectedProduct = products.find((item) => item.ID === productID);
@@ -26,8 +16,10 @@ export function handleOrderFormSubmit(
     return undefined;
   }
   selectedUser.ordinaProdotto(selectedProduct);
-
-  console.log("Found it", selectedProduct);
+  (orderForm.querySelector("#userID") as HTMLSelectElement).value = "";
+  (orderForm.querySelector("#productID") as HTMLSelectElement).value = "";
+  document.querySelectorAll(".user-card").forEach((c) => c.classList.remove("selected"));
+  document.querySelectorAll(".item-card").forEach((c) => c.classList.remove("selected"));
   return selectedProduct;
 }
 
@@ -36,30 +28,24 @@ export function createOrderCard(order: Prodotto): void {
   const card = document.createElement("div");
   card.classList.add("card", "order-card");
   card.innerHTML = `
+        <h3>Item ${order.ID}</h3>
     <div class="item-row">
-        <p>Item ID:</p>
-        <p>${order.ID}</p>
-    </div>
-    <div class="item-row">
-        <p>Tipo: </p>
+        <p>type: </p>
         <p>${order.tipo}</p>
     </div>
     <div class="item-row">
-        <p>Colore: </p>
+        <p>color: </p>
         <p>${order.colore}</p>
     </div>
     <div class="item-row">
-        <p>taglia: </p>
+        <p>size: </p>
         <p>${order.taglia}</p>
     </div>
     <div class="item-row">
-        <p>Stato:</p>
+        <p>state:</p>
         <p>${order.stato}</p>
     </div>
-    <div class="item-row">
-        <p>Client ID:</p>
-        <p>${order.cliente?.ID}</p>
-    </div>
+        <h3>Client ${order.cliente?.ID}</h3>
     <div class="item-row">
         <p>name:</p>
         <p>${order.cliente?.nome}</p>

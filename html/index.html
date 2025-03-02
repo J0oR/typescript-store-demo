@@ -7,119 +7,104 @@
     <title>Document</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://kit.fontawesome.com/de18f9756a.js" crossorigin="anonymous"></script>
-
 </head>
 
 <body>
 
- <!--    <div class="nav-container">
-        <button class="burger-button" onclick="toggleMenu()">
-            <i class="fa-solid fa-bars" aria-hidden="true"></i>
-        </button>
-        <div class="nav-links-container">
-            <a class="nav-link nav-link-products active" href="#">Prodotti</a>
-            <a class="nav-link nav-link-clients" href="#">Clienti</a>
-            <a class="nav-link nav-link-orders" href="#">Ordini</a>
-        </div>
-    </div> -->
+    <div class="app-container">
+        <!-- Products area -->
+        <h2 class="form-title">Create new product</h2>
+        <form id="productForm" class="form">
+            <div class="field">
+                <label for="productType">Type</label>
+                <select id="productType" required>
+                    <option value="pareo">Pareo</option>
+                    <option value="costume da bagno">Costume da bagno</option>
+                    <option value="cappello">Cappello</option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="productColor">Color</label>
+                <select id="productColor" required>
+                    <option value="nero">Nero</option>
+                    <option value="verde">Verde</option>
+                    <option value="rosso">Rosso</option>
+                    <option value="blue">Blu</option>
+                    <!-- Aggiungi altri colori se necessario -->
+                </select>
+            </div>
+            <div class="field">
+                <label for="productAvailability">Availability:</label>
+                <select id="productAvailability" required>
+                    <option value="disponibile">Disponibile</option>
+                    <option value="esaurito">Esaurito</option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="productSize">Size</label>
+                <select id="productSize" required>
+                    <option value="XS">XS</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                </select>
+            </div>
+                <button type="submit">create product</button>
+        </form>
+        <div id="prodCardContainer" class="cards-container productsContainer"></div>
 
+        <!-- Client Area -->
+        <h2 class="form-title">Create new client profile</h2>
+        <form id="clientForm" class="form">
+            <!-- firstname -->
+            <div class="field">
+                <label for="firstName">Name</label>
+                <input type="text" id="firstName" name="firstName" required value="John">
+            </div>
+            <!-- lastname -->
+            <div class="field">
+                <label for="lastName">Surname</label>
+                <input type="text" id="lastName" name="lastName" required value="Doe">
+            </div>
+            <!-- email -->
+            <div class="field">
+                <label for="lastName">Email</label>
+                <input type="email" id="email" name="email" required value="johndoe@gmail.com">
+            </div>
+            <!-- payment -->
+            <div class="field">
+                <label for="paymentMethod">Payment</label>
+                <select id="paymentMethod" name="paymentMethod" required>
+                    <option value="paypal">PayPal</option>
+                    <option value="bonifico">Bonifico</option>
+                    <option value="carta">Carta di credito</option>
+                </select>
+            </div>
+            <!-- submit -->
+            <button type="submit">create client</button>
+        </form>
+        <div id="clientCardContainer" class="cards-container clientsContainer"></div>
 
+        <!-- Order Area -->
+        <h2 class="form-title">Form to Create A new order</h2>
+        <form id="orderForm" class="form">
+            <!-- userID -->
+            <div class="field">
+                <label for="userID">Selected client ID:</label>
+                <input type="number" id="userID" name="userID" required disabled>
+            </div>
+            <!-- product ID -->
+            <div class="field">
+                <label for="productID">Selected product ID:</label>
+                <input type="number" id="productID" name="productID" required disabled>
+            </div>
+            <!-- submit -->
+            <button type="submit">create order</button>
+        </form>
+        <div id="orderCardContainer" class="cards-container orderContainer"></div>
 
-    <!-- Products area -->
-    <h2>Form to Create A Product</h2>
-    <form id="productForm" class="form">
-        <div>
-            <label for="productType">Tipo di Prodotto:</label>
-            <select id="productType" required>
-                <option value="pareo">Pareo</option>
-                <option value="costume da bagno">Costume da bagno</option>
-                <option value="cappello">Cappello</option>
-            </select>
-        </div>
-        <div>
-            <label for="productColor">Colore:</label>
-            <select id="productColor" required>
-                <option value="nero">Nero</option>
-                <option value="verde">Verde</option>
-                <option value="rosso">Rosso</option>
-                <option value="blue">Blu</option>
-                <!-- Aggiungi altri colori se necessario -->
-            </select>
-        </div>
-
-        <div>
-            <label for="productAvailability">Disponibilità:</label>
-            <select id="productAvailability" required>
-                <option value="disponibile">Disponibile</option>
-                <option value="esaurito">Esaurito</option>
-            </select>
-        </div>
-
-        <div>
-            <label for="productSize">Taglia:</label>
-            <select id="productSize" required>
-                <option value="XS">XS</option>
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-                <!-- Aggiungi altre taglie se necessario -->
-            </select>
-        </div>
-
-        <button type="submit">Aggiungi Prodotto</button>
-    </form>
-    <div id="prodCardContainer" class="cards-container productsContainer"></div>
-
-    <!-- Client Area -->
-    <h2>Form to Create A User</h2>
-    <form id="clientForm" class="form">
-        <!-- firstname -->
-         <div>
-             <label for="firstName">Nome:</label>
-             <input type="text" id="firstName" name="firstName" required value="Giuveh">
-         </div>
-        <!-- lastname -->
-         <div>
-             <label for="lastName">Cognome:</label>
-             <input type="text" id="lastName" name="lastName" required value="Giuvehhhh">
-        </div>
-        <!-- email -->
-         <div>
-             <label for="lastName">email:</label>
-             <input type="email" id="email" name="email" required value="a@a.com">
-        </div>
-        <!-- payment -->
-         <div>
-             <label for="paymentMethod">Metodo di pagamento:</label>
-             <select id="paymentMethod" name="paymentMethod" required>
-                 <option value="paypal">PayPal</option>
-                 <option value="bonifico">Bonifico</option>
-                 <option value="carta">Carta di credito</option>
-             </select>
-         </div>
-        <!-- submit -->
-        <button type="submit">Invia</button>
-    </form>
-    <div id="clientCardContainer" class="cards-container clientsContainer"></div>
-
-    <!-- Client Area -->
-    <h2>Form to Create A new order</h2>
-    <form id="orderForm" class="form">
-        <!-- userID -->
-         <div>
-             <label for="userID">User ID:</label>
-             <input type="number" id="userID" name="userID" required>
-         </div>
-        <!-- product ID -->
-        <div>
-            <label for="productID">Product ID:</label>
-            <input type="number" id="productID" name="productID" required>
-        </div>
-        <!-- submit -->
-        <button type="submit">Invia</button>
-    </form>
-    <div id="orderCardContainer" class="cards-container orderContainer"></div>
+    </div>
 
     <script type="module" src="../javascript/app.js"></script>
 

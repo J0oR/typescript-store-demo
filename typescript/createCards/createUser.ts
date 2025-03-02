@@ -1,5 +1,6 @@
 import { Cliente } from "../classes/classes.js";
 import { IDGenerator, Logger } from "../helpers.js";
+import { newOrder } from "../app.js"; // Import the newOrder from the other file
 
 export function handleClientFormSubmit(event: Event): Cliente {
   event.preventDefault();
@@ -26,15 +27,15 @@ export function handleClientFormSubmit(event: Event): Cliente {
 export function createClientCard(client: Cliente): void {
   const clientCardContainer = document.getElementById("clientCardContainer");
   const card = document.createElement("div");
-  card.classList.add("card");
+  card.classList.add("card", "user-card");
   card.innerHTML = `
     <h3>Client ${client.ID}</h3>
     <div class="item-row">
-        <p>Nome:</p>
+        <p>Name:</p>
         <p>${client.nome}</p>
     </div>
     <div class="item-row">
-        <p>Cognome: </p>
+        <p>Surname: </p>
         <p>${client.cognome}</p>
     </div>
     <div class="item-row">
@@ -42,7 +43,7 @@ export function createClientCard(client: Cliente): void {
         <p>${client.email}</p>
     </div>
     <div class="item-row">
-        <p>Metodo di pagamento:</p>
+        <p>payMethod:</p>
         <p>${client.metodoPagamento}</p>
     </div>
 
@@ -52,4 +53,13 @@ export function createClientCard(client: Cliente): void {
   } else {
     console.error("Elemento con id 'clientCardContainer' non trovato");
   }
+
+  // Add a click event listener to the card
+  card.addEventListener("click", () => {
+    const formUserIdInput = document.getElementById("userID") as HTMLInputElement;
+    newOrder[0] = client.ID.toString(); // Access the imported newOrder variable
+    formUserIdInput.value = client.ID.toString();
+    document.querySelectorAll(".user-card").forEach((c) => c.classList.remove("selected"));
+    card.classList.add("selected");
+  });
 }

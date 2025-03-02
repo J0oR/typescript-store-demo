@@ -10,7 +10,10 @@ export function handleOrderFormSubmit(event, clients, products) {
         return undefined;
     }
     selectedUser.ordinaProdotto(selectedProduct);
-    console.log("Found it", selectedProduct);
+    orderForm.querySelector("#userID").value = "";
+    orderForm.querySelector("#productID").value = "";
+    document.querySelectorAll(".user-card").forEach((c) => c.classList.remove("selected"));
+    document.querySelectorAll(".item-card").forEach((c) => c.classList.remove("selected"));
     return selectedProduct;
 }
 export function createOrderCard(order) {
@@ -19,30 +22,24 @@ export function createOrderCard(order) {
     const card = document.createElement("div");
     card.classList.add("card", "order-card");
     card.innerHTML = `
+        <h3>Item ${order.ID}</h3>
     <div class="item-row">
-        <p>Item ID:</p>
-        <p>${order.ID}</p>
-    </div>
-    <div class="item-row">
-        <p>Tipo: </p>
+        <p>type: </p>
         <p>${order.tipo}</p>
     </div>
     <div class="item-row">
-        <p>Colore: </p>
+        <p>color: </p>
         <p>${order.colore}</p>
     </div>
     <div class="item-row">
-        <p>taglia: </p>
+        <p>size: </p>
         <p>${order.taglia}</p>
     </div>
     <div class="item-row">
-        <p>Stato:</p>
+        <p>state:</p>
         <p>${order.stato}</p>
     </div>
-    <div class="item-row">
-        <p>Client ID:</p>
-        <p>${(_a = order.cliente) === null || _a === void 0 ? void 0 : _a.ID}</p>
-    </div>
+        <h3>Client ${(_a = order.cliente) === null || _a === void 0 ? void 0 : _a.ID}</h3>
     <div class="item-row">
         <p>name:</p>
         <p>${(_b = order.cliente) === null || _b === void 0 ? void 0 : _b.nome}</p>
