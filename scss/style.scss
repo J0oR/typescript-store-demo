@@ -1,0 +1,123 @@
+* {
+  border: 1px solid red;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  gap: 20px;
+}
+
+.form {
+  display: flex;
+  height: 50px;
+
+  div{
+    display: flex;
+    flex-direction: column;
+  }
+
+  
+}
+
+/* item card sections */
+
+.cards-container {
+  display: flex;
+  height: 180px;
+
+  .card {
+    border: 2px solid black;
+    border-radius: 25px;
+  
+    .item-row {
+      margin: 5px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      text-align: left;
+      width: 100%;
+  
+      p {
+        width: 50%;
+      }
+    }
+  }
+
+}
+
+.card.order-card{
+  height: fit-content !important;
+}
+
+
+
+
+// nav
+
+.nav-container {
+  width: 10%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 90vh;
+  //animation: fadeInFromLeft 0.5sease-in-out forwards;
+
+
+  .burger-button {
+    width: 50;
+    height: 50;
+    border: 2px solid black;
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 2rem;
+    color: #000;
+    z-index: 200;
+    position: absolute;
+    right: 30px;
+    top: 30px
+}
+
+  .nav-links-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+
+
+    
+
+
+// overlay menu
+
+
+
+
+
+@keyframes fadeInFromBottom {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+}
+
+
+#clienteForm{
+  display: none;
+}
+
+.hidden{
+  display: none;
+}
