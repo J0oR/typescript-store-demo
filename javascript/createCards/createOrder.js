@@ -61,7 +61,6 @@ export function createOrderCard(order) {
         <p>email:</p>
         <p>${(_e = order.cliente) === null || _e === void 0 ? void 0 : _e.email}</p>
     </div>
-
   `;
     if (orderCardContainer) {
         orderCardContainer.prepend(card);

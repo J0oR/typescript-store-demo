@@ -73,10 +73,6 @@ cliente2.ordinaProdotto(prodotto2);
 // ordine di un altro cliente
 cliente3.ordinaProdotto(prodotto2); */
 
-
-
-
-
 const products: Prodotto[] = [];
 const processoRiciclo = new ProcessoProduzione(
   dettagliProcesso.nome,
@@ -86,10 +82,7 @@ const clients: Cliente[] = [];
 
 const orders: Prodotto[] = [];
 
-
-
 localStorage.setItem("processoRiciclo", JSON.stringify(processoRiciclo));
-
 
 /**
  *
@@ -139,9 +132,35 @@ document.addEventListener("DOMContentLoaded", function () {
   const orderForm = document.getElementById("orderForm");
   if (orderForm) {
     orderForm.addEventListener("submit", (event) => {
-      let newOrder: Prodotto | undefined = handleOrderFormSubmit(event, clients, products);
+      let newOrder: Prodotto | undefined = handleOrderFormSubmit(
+        event,
+        clients,
+        products
+      );
       if (newOrder) {
         orders.push(newOrder);
+
+        // Rimuovi il prodotto da 'products', perchè è esaurito dopo l'ordine
+        const productIndex = products.findIndex(
+          (product) => product.ID === newOrder.ID
+        );
+        if (productIndex !== -1) {
+          products.splice(productIndex, 1); // Rimuove il prodotto
+        }
+
+        // Trova e rimuovi la card associata al prodotto
+        const cards = document.querySelectorAll(".card");
+        cards.forEach((card) => {
+          const productTitle = card.querySelector("h3");
+          if (
+            productTitle &&
+            productTitle.innerHTML.includes(`Item ${newOrder.ID}`)
+          ) {
+            card.remove(); // Rimuove la card
+          }
+        });
+
+        // creo card dell'ordine
         createOrderCard(newOrder);
       } else {
         console.error("Failed to submit order");
