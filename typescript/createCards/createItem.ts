@@ -1,33 +1,34 @@
-import { ProcessoProduzione } from "../classes.js";
-import { Prodotto } from "../classes.js";
-import { Cliente } from "../classes.js";
-import { dettagliProcesso } from "../types.js";
-import { IDGenerator, Logger } from "../helpers.js";
-
-
+import { Prodotto } from "../classes/classes.js";
+import { IDGenerator } from "../helpers.js";
 
 // Helper functions for form handling and UI updates
 export function handleProductFormSubmit(event: Event): Prodotto {
   event.preventDefault();
 
   const productForm = document.getElementById("productForm") as HTMLElement;
-  const tipo = (productForm.querySelector("#productType") as HTMLSelectElement).value;
-  const colore = (productForm.querySelector("#productColor") as HTMLSelectElement).value;
-  const stato = (productForm.querySelector("#productAvailability") as HTMLSelectElement).value;
-  const taglia = (productForm.querySelector("#productSize") as HTMLSelectElement).value;
+  const tipo = (productForm.querySelector("#productType") as HTMLSelectElement)
+    .value;
+  const colore = (
+    productForm.querySelector("#productColor") as HTMLSelectElement
+  ).value;
+  const stato = (
+    productForm.querySelector("#productAvailability") as HTMLSelectElement
+  ).value;
+  const taglia = (
+    productForm.querySelector("#productSize") as HTMLSelectElement
+  ).value;
 
   const newProduct = new Prodotto(
-    tipo as "costume da bagno" | "pareo" | "cappello", 
-    IDGenerator.generateID(), 
-    taglia, 
-    colore, 
+    tipo as "costume da bagno" | "pareo" | "cappello",
+    IDGenerator.generateID(),
+    taglia,
+    colore,
     stato as "esaurito" | "disponibile"
   );
 
- // processoRiciclo.aggiungiProdotto(newProduct);
+  // processoRiciclo.aggiungiProdotto(newProduct);
   return newProduct;
 }
-
 
 export function createProductCard(product: Prodotto): void {
   const prodCardContainer = document.getElementById("prodCardContainer");

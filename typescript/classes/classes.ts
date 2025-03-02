@@ -5,7 +5,7 @@ import {
   dettagliProcesso,
 } from "./types";
 
-import { Logger, IDGenerator } from "./helpers.js";
+import { Logger, IDGenerator } from "../helpers.js";
 
 /************************ PRODOTTO ***************************/
 
@@ -87,13 +87,12 @@ export class ProcessoProduzione implements IProcessoProduzione {
   }
 
   updateClassItems(): void {
-    this.prodottiInProduzione = JSON.parse(localStorage.getItem("items") || "{}");
+    this.prodottiInProduzione = JSON.parse(
+      localStorage.getItem("items") || "{}"
+    );
   }
 
   updateLocalStorage(): void {
-    localStorage.setItem(
-      "items",
-      JSON.stringify(this.prodottiInProduzione)
-    );
+    localStorage.setItem("items", JSON.stringify(this.prodottiInProduzione));
   }
 }

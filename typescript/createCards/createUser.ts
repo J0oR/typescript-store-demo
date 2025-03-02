@@ -1,25 +1,25 @@
-import { ProcessoProduzione } from "../classes.js";
-import { Prodotto } from "../classes.js";
-import { Cliente } from "../classes.js";
-import { dettagliProcesso } from "../types.js";
+import { Cliente } from "../classes/classes.js";
 import { IDGenerator, Logger } from "../helpers.js";
 
-
-
-// Helper functions for form handling and UI updates
 export function handleClientFormSubmit(event: Event): Cliente {
   event.preventDefault();
-
   const clientForm = document.getElementById("clientForm") as HTMLElement;
-  const firstName = (clientForm.querySelector("#firstName") as HTMLSelectElement).value;
-  const lastName = (clientForm.querySelector("#lastName") as HTMLSelectElement).value;
+  const firstName = (
+    clientForm.querySelector("#firstName") as HTMLSelectElement
+  ).value;
+  const lastName = (clientForm.querySelector("#lastName") as HTMLSelectElement)
+    .value;
   const email = (clientForm.querySelector("#email") as HTMLSelectElement).value;
-  const paymentMethod = (clientForm.querySelector("#paymentMethod") as HTMLSelectElement).value;
-
-  const newClient = new Cliente(firstName, lastName, paymentMethod, email, IDGenerator.generateID());
-
- // processoRiciclo.aggiungiProdotto(newProduct);
-
+  const paymentMethod = (
+    clientForm.querySelector("#paymentMethod") as HTMLSelectElement
+  ).value;
+  const newClient = new Cliente(
+    firstName,
+    lastName,
+    paymentMethod,
+    email,
+    IDGenerator.generateID()
+  );
   return newClient;
 }
 

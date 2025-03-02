@@ -1,11 +1,10 @@
-// Helper functions for form handling and UI updates
 export function handleOrderFormSubmit(event, clients, products) {
     event.preventDefault();
     const orderForm = document.getElementById("orderForm");
     const userID = parseInt(orderForm.querySelector("#userID").value, 10);
     const productID = parseInt(orderForm.querySelector("#productID").value, 10);
-    let selectedUser = clients.find(client => client.ID === userID);
-    let selectedProduct = products.find(item => item.ID === productID);
+    let selectedUser = clients.find((client) => client.ID === userID);
+    let selectedProduct = products.find((item) => item.ID === productID);
     if (!selectedUser || !selectedProduct) {
         console.log("Undefined", selectedProduct, selectedUser);
         return undefined;
@@ -13,7 +12,6 @@ export function handleOrderFormSubmit(event, clients, products) {
     selectedUser.ordinaProdotto(selectedProduct);
     console.log("Found it", selectedProduct);
     return selectedProduct;
-    // processoRiciclo.aggiungiProdotto(newProduct);
 }
 export function createOrderCard(order) {
     var _a, _b, _c, _d, _e;

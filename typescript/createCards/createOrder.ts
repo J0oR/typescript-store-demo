@@ -1,37 +1,34 @@
-import { ProcessoProduzione } from "../classes.js";
-import { Prodotto } from "../classes.js";
-import { Cliente } from "../classes.js";
-import { dettagliProcesso } from "../types.js";
-import { IDGenerator, Logger } from "../helpers.js";
+import { Prodotto } from "../classes/classes.js";
+import { Cliente } from "../classes/classes.js";
 
-
-
-// Helper functions for form handling and UI updates
-export function handleOrderFormSubmit(event: Event, clients: Cliente[], products: Prodotto[] ): Prodotto | undefined {
+export function handleOrderFormSubmit(
+  event: Event,
+  clients: Cliente[],
+  products: Prodotto[]
+): Prodotto | undefined {
   event.preventDefault();
 
   const orderForm = document.getElementById("orderForm") as HTMLElement;
-  const userID = parseInt((orderForm.querySelector("#userID") as HTMLSelectElement).value, 10);
-  const productID = parseInt((orderForm.querySelector("#productID") as HTMLSelectElement).value, 10);
+  const userID = parseInt(
+    (orderForm.querySelector("#userID") as HTMLSelectElement).value,
+    10
+  );
+  const productID = parseInt(
+    (orderForm.querySelector("#productID") as HTMLSelectElement).value,
+    10
+  );
 
+  let selectedUser = clients.find((client) => client.ID === userID);
+  let selectedProduct = products.find((item) => item.ID === productID);
 
-  let selectedUser = clients.find(client => client.ID === userID);
-  
-  let selectedProduct = products.find(item => item.ID === productID);
-  
-  
   if (!selectedUser || !selectedProduct) {
-      console.log("Undefined", selectedProduct, selectedUser);
+    console.log("Undefined", selectedProduct, selectedUser);
     return undefined;
   }
   selectedUser.ordinaProdotto(selectedProduct);
 
   console.log("Found it", selectedProduct);
   return selectedProduct;
-  
-
-
- // processoRiciclo.aggiungiProdotto(newProduct);
 }
 
 export function createOrderCard(order: Prodotto): void {

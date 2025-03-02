@@ -1,5 +1,5 @@
-import { ProcessoProduzione } from "./classes.js";
-import { dettagliProcesso } from "./types.js";
+import { ProcessoProduzione } from "./classes/classes.js";
+import { dettagliProcesso } from "./classes/types.js";
 import { handleProductFormSubmit, createProductCard, } from "./createCards/createItem.js";
 import { createClientCard, handleClientFormSubmit, } from "./createCards/createUser.js";
 import { createOrderCard, handleOrderFormSubmit, } from "./createCards/createOrder.js";

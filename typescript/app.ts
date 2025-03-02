@@ -1,8 +1,7 @@
-import { ProcessoProduzione } from "./classes.js";
-import { Prodotto } from "./classes.js";
-import { Cliente } from "./classes.js";
-import { dettagliProcesso } from "./types.js";
-import { IDGenerator, Logger } from "./helpers.js";
+import { ProcessoProduzione } from "./classes/classes.js";
+import { Prodotto } from "./classes/classes.js";
+import { Cliente } from "./classes/classes.js";
+import { dettagliProcesso } from "./classes/types.js";
 import {
   handleProductFormSubmit,
   createProductCard,
@@ -15,8 +14,6 @@ import {
   createOrderCard,
   handleOrderFormSubmit,
 } from "./createCards/createOrder.js";
-import { json } from "stream/consumers";
-import { create } from "domain";
 
 /* let prodotto1 = new Prodotto(
   "costume da bagno",

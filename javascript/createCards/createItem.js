@@ -1,10 +1,11 @@
-import { Prodotto } from "../classes.js";
+import { Prodotto } from "../classes/classes.js";
 import { IDGenerator } from "../helpers.js";
 // Helper functions for form handling and UI updates
 export function handleProductFormSubmit(event) {
     event.preventDefault();
     const productForm = document.getElementById("productForm");
-    const tipo = productForm.querySelector("#productType").value;
+    const tipo = productForm.querySelector("#productType")
+        .value;
     const colore = productForm.querySelector("#productColor").value;
     const stato = productForm.querySelector("#productAvailability").value;
     const taglia = productForm.querySelector("#productSize").value;

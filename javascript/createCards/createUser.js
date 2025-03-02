@@ -1,15 +1,14 @@
-import { Cliente } from "../classes.js";
+import { Cliente } from "../classes/classes.js";
 import { IDGenerator } from "../helpers.js";
-// Helper functions for form handling and UI updates
 export function handleClientFormSubmit(event) {
     event.preventDefault();
     const clientForm = document.getElementById("clientForm");
     const firstName = clientForm.querySelector("#firstName").value;
-    const lastName = clientForm.querySelector("#lastName").value;
+    const lastName = clientForm.querySelector("#lastName")
+        .value;
     const email = clientForm.querySelector("#email").value;
     const paymentMethod = clientForm.querySelector("#paymentMethod").value;
     const newClient = new Cliente(firstName, lastName, paymentMethod, email, IDGenerator.generateID());
-    // processoRiciclo.aggiungiProdotto(newProduct);
     return newClient;
 }
 export function createClientCard(client) {
