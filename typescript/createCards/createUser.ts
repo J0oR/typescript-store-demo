@@ -1,27 +1,18 @@
 import { Cliente } from "../classes/classes.js";
-import { IDGenerator, Logger } from "../helpers.js";
-import { newOrder } from "../app.js"; // Import the newOrder from the other file
+import { IDGenerator } from "../helpers.js";
+import { newOrderIDs } from "../app.js";
 
-export function handleClientFormSubmit(event: Event): Cliente {
-  event.preventDefault();
+export function handleClientFormSubmit(): Cliente {
   const clientForm = document.getElementById("clientForm") as HTMLElement;
-  const firstName = (
-    clientForm.querySelector("#firstName") as HTMLSelectElement
-  ).value;
-  const lastName = (clientForm.querySelector("#lastName") as HTMLSelectElement)
-    .value;
+  const firstName = (clientForm.querySelector("#firstName") as HTMLSelectElement).value;
+  const lastName = (clientForm.querySelector("#lastName") as HTMLSelectElement).value;
   const email = (clientForm.querySelector("#email") as HTMLSelectElement).value;
-  const paymentMethod = (
-    clientForm.querySelector("#paymentMethod") as HTMLSelectElement
-  ).value;
-  const newClient = new Cliente(
-    firstName,
-    lastName,
-    paymentMethod,
-    email,
-    IDGenerator.generateID()
-  );
-  return newClient;
+  const paymentMethod = (clientForm.querySelector("#paymentMethod") as HTMLSelectElement).value;
+  return createClient(firstName,lastName,paymentMethod,email,IDGenerator.generateID());
+}
+
+export function createClient(nome: string, cognome: string, metodoPagamento: string, email: string, ID: number): Cliente {
+  return new Cliente(nome, cognome, metodoPagamento, email, ID);
 }
 
 export function createClientCard(client: Cliente): void {
@@ -46,8 +37,8 @@ export function createClientCard(client: Cliente): void {
         <p>payMethod:</p>
         <p>${client.metodoPagamento}</p>
     </div>
-
   `;
+  
   if (clientCardContainer) {
     clientCardContainer.prepend(card);
   } else {
@@ -56,9 +47,10 @@ export function createClientCard(client: Cliente): void {
 
   // Add a click event listener to the card
   card.addEventListener("click", () => {
-    const formUserIdInput = document.getElementById("userID") as HTMLInputElement;
-    newOrder[0] = client.ID.toString(); // Access the imported newOrder variable
-    formUserIdInput.value = client.ID.toString();
+    // Update the newOrder array & the input field on the form
+    newOrderIDs[0] = client.ID.toString(); 
+    (document.getElementById("userID") as HTMLInputElement).value = client.ID.toString();
+    // Remove the "selected" class from all other cards & add it to the clicked card
     document.querySelectorAll(".user-card").forEach((c) => c.classList.remove("selected"));
     card.classList.add("selected");
   });

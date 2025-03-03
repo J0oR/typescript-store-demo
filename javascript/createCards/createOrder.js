@@ -10,8 +10,10 @@ export function handleOrderFormSubmit(event, clients, products) {
         return undefined;
     }
     selectedUser.ordinaProdotto(selectedProduct);
+    // Reset the form
     orderForm.querySelector("#userID").value = "";
     orderForm.querySelector("#productID").value = "";
+    // Remove the 'selected' class from all cards
     document.querySelectorAll(".user-card").forEach((c) => c.classList.remove("selected"));
     document.querySelectorAll(".item-card").forEach((c) => c.classList.remove("selected"));
     return selectedProduct;

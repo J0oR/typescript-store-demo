@@ -6,7 +6,8 @@ export class Logger {
         const topBottom = angle + borderChar.repeat(width) + angle;
         const inBetween = side + " ".repeat(width) + side;
         const middle = side + " " + messageHeader + " " + side;
-        console.log(topBottom +
+        /* console.log(
+          topBottom +
             "\n" +
             inBetween +
             "\n" +
@@ -14,8 +15,9 @@ export class Logger {
             "\n" +
             inBetween +
             "\n" +
-            topBottom);
-        console.log(messageBody);
+            topBottom
+        );
+        console.log(messageBody); */
     }
 }
 export class IDGenerator {

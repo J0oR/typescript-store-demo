@@ -10,7 +10,7 @@ export class Logger {
     const topBottom = angle + borderChar.repeat(width) + angle;
     const inBetween = side + " ".repeat(width) + side;
     const middle = side + " " + messageHeader + " " + side;
-    console.log(
+    /* console.log(
       topBottom +
         "\n" +
         inBetween +
@@ -21,7 +21,7 @@ export class Logger {
         "\n" +
         topBottom
     );
-    console.log(messageBody);
+    console.log(messageBody); */
   }
 }
 

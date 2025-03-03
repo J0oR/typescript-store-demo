@@ -5,7 +5,7 @@ import {
   dettagliProcesso,
 } from "./types";
 
-import { Logger, IDGenerator } from "../helpers.js";
+import { Logger } from "../helpers.js";
 
 /************************ PRODOTTO ***************************/
 
@@ -26,14 +26,17 @@ export class Prodotto implements IProdotto {
 
     // Verifica se il cliente ha già acquistato il prodotto
     if (this.cliente && this.cliente.ID === cliente.ID) {
+      console.log("A");
       message = `Il cliente ${cliente.nome} ${cliente.cognome} ha già acquistato questo prodotto.`;
       Logger.logSeparator(message, "-", `${JSON.stringify(this, null, 2)}\n`);
       return; // Termina l'esecuzione se il prodotto è già stato acquistato dal cliente
     }
 
     if (this.stato === "esaurito") {
+      console.log("B");
       message = `Il cliente ${cliente.nome} ${cliente.cognome} vorrebbe ordinare un prodotto esaurito`;
     } else {
+      console.log("C");
       this.cliente = cliente;
       message = `Il cliente ${cliente.nome} ${cliente.cognome} ha effettuato un ordine`;
       this.statoOrdine = "ordinato";
@@ -76,7 +79,6 @@ export class ProcessoProduzione implements IProcessoProduzione {
       console.log(`Il prodotto con ID ${prodotto.ID} è già in produzione.`);
     } else {
       this.prodottiInProduzione.unshift(prodotto);
-      this.updateLocalStorage();
       let message = `Prodotto aggiunto al processo di produzione ${this.nome}`;
       Logger.logSeparator(
         message,
@@ -84,15 +86,5 @@ export class ProcessoProduzione implements IProcessoProduzione {
         `\n${JSON.stringify(prodotto, null, 2)}\n\n`
       );
     }
-  }
-
-  updateClassItems(): void {
-    this.prodottiInProduzione = JSON.parse(
-      localStorage.getItem("items") || "{}"
-    );
-  }
-
-  updateLocalStorage(): void {
-    localStorage.setItem("items", JSON.stringify(this.prodottiInProduzione));
   }
 }

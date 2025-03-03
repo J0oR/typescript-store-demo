@@ -1,16 +1,16 @@
 import { Cliente } from "../classes/classes.js";
 import { IDGenerator } from "../helpers.js";
-import { newOrder } from "../app.js"; // Import the newOrder from the other file
-export function handleClientFormSubmit(event) {
-    event.preventDefault();
+import { newOrderIDs } from "../app.js";
+export function handleClientFormSubmit() {
     const clientForm = document.getElementById("clientForm");
     const firstName = clientForm.querySelector("#firstName").value;
-    const lastName = clientForm.querySelector("#lastName")
-        .value;
+    const lastName = clientForm.querySelector("#lastName").value;
     const email = clientForm.querySelector("#email").value;
     const paymentMethod = clientForm.querySelector("#paymentMethod").value;
-    const newClient = new Cliente(firstName, lastName, paymentMethod, email, IDGenerator.generateID());
-    return newClient;
+    return createClient(firstName, lastName, paymentMethod, email, IDGenerator.generateID());
+}
+export function createClient(nome, cognome, metodoPagamento, email, ID) {
+    return new Cliente(nome, cognome, metodoPagamento, email, ID);
 }
 export function createClientCard(client) {
     const clientCardContainer = document.getElementById("clientCardContainer");
@@ -34,7 +34,6 @@ export function createClientCard(client) {
         <p>payMethod:</p>
         <p>${client.metodoPagamento}</p>
     </div>
-
   `;
     if (clientCardContainer) {
         clientCardContainer.prepend(card);
@@ -44,9 +43,10 @@ export function createClientCard(client) {
     }
     // Add a click event listener to the card
     card.addEventListener("click", () => {
-        const formUserIdInput = document.getElementById("userID");
-        newOrder[0] = client.ID.toString(); // Access the imported newOrder variable
-        formUserIdInput.value = client.ID.toString();
+        // Update the newOrder array & the input field on the form
+        newOrderIDs[0] = client.ID.toString();
+        document.getElementById("userID").value = client.ID.toString();
+        // Remove the "selected" class from all other cards & add it to the clicked card
         document.querySelectorAll(".user-card").forEach((c) => c.classList.remove("selected"));
         card.classList.add("selected");
     });
