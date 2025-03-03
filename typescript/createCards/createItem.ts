@@ -22,6 +22,7 @@ export function createProductCard(product: Prodotto): void {
   const prodCardContainer = document.getElementById("prodCardContainer");
   const card = document.createElement("div");
   card.classList.add("card", "item-card");
+  card.setAttribute("data-product-id", product.ID.toString()); // Store product ID
   card.innerHTML = `
     <h3>Item ${product.ID}</h3>
     <div class="item-row">
@@ -43,11 +44,11 @@ export function createProductCard(product: Prodotto): void {
   `;
 
   // Add the card to the container
-  if (prodCardContainer) {
-    prodCardContainer.prepend(card);
-  } else {
+  if (!prodCardContainer) {
     console.error("Elemento con id 'prodCardContainer' non trovato");
+    return ;
   }
+  prodCardContainer.prepend(card);
 
   // Add a click event listener to the card
   card.addEventListener("click", () => {

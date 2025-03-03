@@ -14,17 +14,14 @@ export class Prodotto {
         let message = "";
         // Verifica se il cliente ha già acquistato il prodotto
         if (this.cliente && this.cliente.ID === cliente.ID) {
-            console.log("A");
             message = `Il cliente ${cliente.nome} ${cliente.cognome} ha già acquistato questo prodotto.`;
             Logger.logSeparator(message, "-", `${JSON.stringify(this, null, 2)}\n`);
-            return; // Termina l'esecuzione se il prodotto è già stato acquistato dal cliente
+            return;
         }
         if (this.stato === "esaurito") {
-            console.log("B");
             message = `Il cliente ${cliente.nome} ${cliente.cognome} vorrebbe ordinare un prodotto esaurito`;
         }
         else {
-            console.log("C");
             this.cliente = cliente;
             message = `Il cliente ${cliente.nome} ${cliente.cognome} ha effettuato un ordine`;
             this.statoOrdine = "ordinato";
