@@ -12,7 +12,7 @@ export function handleProductFormSubmit(): Prodotto {
   return createProduct(tipo as "costume da bagno" | "pareo" | "cappello", IDGenerator.generateID(), taglia, colore, stato as "esaurito" | "disponibile");
 }
 
-export function createProduct(tipo: "costume da bagno" | "pareo" | "cappello", ID: number, taglia: string, colore: string, stato: "esaurito" | "disponibile"):Prodotto {
+export function createProduct(tipo: "costume da bagno" | "pareo" | "cappello", ID: number, taglia: string, colore: string, stato: "esaurito" | "disponibile"): Prodotto {
   const newProduct = new Prodotto(tipo, ID, taglia, colore, stato);
   processoRiciclo.aggiungiProdotto(newProduct);
   return newProduct;
@@ -25,38 +25,50 @@ export function createProductCard(product: Prodotto): void {
   card.setAttribute("data-product-id", product.ID.toString()); // Store product ID
   card.innerHTML = `
     <h3>Item ${product.ID}</h3>
-    <div class="item-row">
-        <p>Category:</p>
-        <p>${product.tipo}</p>
+    <div class="card-rows-container" hidden>
+      <div class="item-row">
+          <p>Category:</p>
+          <p>${product.tipo}</p>
+      </div>
+      <div class="item-row">
+          <p>Size:</p>
+          <p>${product.taglia}</p>
+      </div>
+      <div class="item-row">
+          <p>Color:</p>
+          <p>${product.colore}</p>
+      </div>
+      <div class="item-row">
+          <p>Availability: </p>
+          <p>${product.stato}</p>
+      </div>
     </div>
-    <div class="item-row">
-        <p>Size:</p>
-        <p>${product.taglia}</p>
-    </div>
-    <div class="item-row">
-        <p>Color:</p>
-        <p>${product.colore}</p>
-    </div>
-     <div class="item-row">
-        <p>Availability: </p>
-        <p>${product.stato}</p>
-    </div>
+    <div class="card-btn-container">
+      <button class="details-button">show details</button>  
+      <button class="add-to-order-button">add to order</button>  
+    </div> 
   `;
 
   // Add the card to the container
   if (!prodCardContainer) {
     console.error("Elemento con id 'prodCardContainer' non trovato");
-    return ;
+    return;
   }
   prodCardContainer.prepend(card);
 
-  // Add a click event listener to the card
-  card.addEventListener("click", () => {
+  const detailsButton = card.querySelector('.details-button') as HTMLButtonElement;
+  detailsButton.addEventListener("click", () => {
+    detailsButton.innerHTML = detailsButton.innerHTML === 'show details' ? 'hide details' : 'show details';
+    (card.querySelector('.card-rows-container') as HTMLButtonElement).toggleAttribute('hidden');
+  });
+
+   // Add a click event listener to the card
+   (card.querySelector('.add-to-order-button') as HTMLButtonElement).addEventListener("click", () => {
     // Update the newOrder array & the input field on the form
     newOrderIDs[1] = product.ID.toString();
     (document.getElementById("productID") as HTMLInputElement).value = product.ID.toString();
     // Remove the "selected" class from all other cards & add it to the clicked card
     document.querySelectorAll(".item-card").forEach((c) => c.classList.remove("selected"));
     card.classList.add("selected");
-  });
+  }); 
 }

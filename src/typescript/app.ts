@@ -4,6 +4,7 @@ import { handleProductFormSubmit, createProduct, createProductCard } from "./cre
 import { createClientCard, handleClientFormSubmit, createClient } from "./createCards/createUser.js";
 import { createOrderCard, handleOrderFormSubmit } from "./createCards/createOrder.js";
 import { saveToLocalStorage, getLocalStorageData } from "./helpers.js";
+import '../scss/style.scss';
 
 let products: Prodotto[] = [];
 export const processoRiciclo = new ProcessoProduzione(dettagliProcesso.nome, dettagliProcesso.descrizione);
@@ -119,6 +120,23 @@ function moveProductToOrders(productID: number): void {
 
 // Initialize application
 document.addEventListener("DOMContentLoaded", () => {
+
+  const productButton = document.querySelector(".product-toggle-btn") as HTMLButtonElement;
+  productButton.addEventListener("click", () => {
+    productButton.innerHTML = productButton.innerHTML === '+' ? '-' : '+';
+    (document.querySelector(".product-toggable") as HTMLElement).toggleAttribute('hidden');
+  });
+  const clientButton = document.querySelector(".client-toggle-btn") as HTMLButtonElement;
+  clientButton.addEventListener("click", () => {
+    clientButton.innerHTML = clientButton.innerHTML === '+' ? '-' : '+';
+    (document.querySelector(".client-toggable") as HTMLElement).toggleAttribute('hidden');
+  });
+  const orderButton = document.querySelector(".order-toggle-btn") as HTMLButtonElement;
+  orderButton.addEventListener("click", () => {
+    orderButton.innerHTML = orderButton.innerHTML === '+' ? '-' : '+';
+    (document.querySelector(".order-toggable") as HTMLElement).toggleAttribute('hidden');
+  });
+  
   initializeLocalStorageData();
   attachFormListeners();
 });

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--     <link rel="stylesheet" href="../css/style.css">
+ -->
+    <script src="https://kit.fontawesome.com/de18f9756a.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Products area -->
+        <div class="section">
+            <div class="section-header">
+                <h2 class="form-title">Create new product</h2>
+                <button class="product-toggle-btn">-</button>
+            </div>
+            <div class="product-toggable">
+                <form id="productForm" class="form">
+                    <div class="field">
+                        <label for="productType">Type</label>
+                        <select id="productType" required>
+                            <option value="pareo">Pareo</option>
+                            <option value="costume da bagno">Costume da bagno</option>
+                            <option value="cappello">Cappello</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="productColor">Color</label>
+                        <select id="productColor" required>
+                            <option value="nero">Nero</option>
+                            <option value="verde">Verde</option>
+                            <option value="rosso">Rosso</option>
+                            <option value="blue">Blu</option>
+                            <!-- Aggiungi altri colori se necessario -->
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="productAvailability">Availability:</label>
+                        <select id="productAvailability" required>
+                            <option value="disponibile">Disponibile</option>
+                            <option value="esaurito">Esaurito</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="productSize">Size</label>
+                        <select id="productSize" required>
+                            <option value="XS">XS</option>
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                        </select>
+                    </div>
+                    <button type="submit">create product</button>
+                </form>
+                <div id="prodCardContainer" class="cards-container productsContainer"></div>
+            </div>
+        </div>
+
+        <!-- Client Area -->
+        <div class="section">
+            <div class="section-header">
+                <h2 class="form-title">Create new client profile</h2>
+                <button class="client-toggle-btn">-</button>
+            </div>
+            <div class="client-toggable">
+                <form id="clientForm" class="form">
+                    <!-- firstname -->
+                    <div class="field">
+                        <label for="firstName">Name</label>
+                        <input type="text" id="firstName" name="firstName" required value="John">
+                    </div>
+                    <!-- lastname -->
+                    <div class="field">
+                        <label for="lastName">Surname</label>
+                        <input type="text" id="lastName" name="lastName" required value="Doe">
+                    </div>
+                    <!-- email -->
+                    <div class="field">
+                        <label for="lastName">Email</label>
+                        <input type="email" id="email" name="email" required value="johndoe@gmail.com">
+                    </div>
+                    <!-- payment -->
+                    <div class="field">
+                        <label for="paymentMethod">Payment</label>
+                        <select id="paymentMethod" name="paymentMethod" required>
+                            <option value="paypal">PayPal</option>
+                            <option value="bonifico">Bonifico</option>
+                            <option value="carta">Carta di credito</option>
+                        </select>
+                    </div>
+                    <!-- submit -->
+                    <button type="submit">create client</button>
+                </form>
+                <div id="clientCardContainer" class="cards-container clientsContainer"></div>
+            </div>
+        </div>
+
+        <!-- Order Area -->
+        <div class="section">
+            <div class="section-header">
+                <h2 class="form-title">Form to Create A new order</h2>
+                <button class="order-toggle-btn">-</button>
+            </div>
+            <div class="order-toggable">
+                <form id="orderForm" class="form">
+                    <!-- userID -->
+                    <div class="field">
+                        <label for="userID">Selected client ID:</label>
+                        <input type="number" id="userID" name="userID" required disabled>
+                    </div>
+                    <!-- product ID -->
+                    <div class="field">
+                        <label for="productID">Selected product ID:</label>
+                        <input type="number" id="productID" name="productID" required disabled>
+                    </div>
+                    <!-- submit -->
+                    <button type="submit">create order</button>
+                </form>
+                <div id="orderCardContainer" class="cards-container orderContainer"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--     <script type="module" src="../javascript/app.js"></script>
+ -->
+</body>
+
+</html>

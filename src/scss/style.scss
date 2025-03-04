@@ -1,5 +1,5 @@
 * {
-  border: 1px solid red;
+  //border: 1px solid red;
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -16,14 +16,44 @@ body {
   margin: 0 auto;
   width: 80%;
   max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  .section{
+    border: 1px solid black;
+
+    .section-header{
+      background-color: lightblue;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .form-title{
+        padding: 20px;  
+      }
+
+      button{
+        width: 30px;
+        height: 30px;
+        margin: 10px;
+        font-size: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.2s ease-in-out;
+
+        &:hover{
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
 }
 
 /* Form */
 
-.form-title{
-  padding: 20px;  
-  background-color: lightblue;
-}
+
 
 .form {
   display: flex;
@@ -65,9 +95,9 @@ body {
     justify-content: center;
     align-items: center;
     width: 100px;
-    height: 70px;
+    height: 40px;
     border-radius: 5px;
-    padding: 20px;
+    padding: 10px 20px;
 
     @media screen and (max-width: 1200px) {
       margin: 0 auto;
@@ -86,25 +116,26 @@ body {
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
-  height: 220px;
+  height: fit-content;
   overflow-x: scroll;
   overflow-y: hidden;
   padding: 20px 10px;
 
-  &.orderContainer{
+ /*  &.orderContainer{
     height: 300px;
-  }
+  } */
 
   .card {
     border: 2px solid black;
     border-radius: 15px;
     padding: 10px;
     width: 300px;
-    height: 180px;
+    height: fit-content;
     flex-shrink: 0; /* Prevent the cards from shrinking */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 10px;
 
     &.order-card{
       height: fit-content !important;
@@ -129,8 +160,27 @@ body {
       }
     }
 
+    .card-btn-container{
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      gap: 30px;
+
+      button{
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: 1px solid black;
+        background-color: lightblue;
+        transition: all 0.2s ease-in-out;
+
+        &:hover{
+          cursor: pointer;
+          transform: scale(1.05);
+        }
+      }
+    }
+
     &:hover:not(.order-card){
-      cursor: pointer;
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
     }
 

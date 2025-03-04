@@ -21,22 +21,28 @@ export function createClientCard(client: Cliente): void {
   card.classList.add("card", "user-card");
   card.innerHTML = `
     <h3>Client ${client.ID}</h3>
-    <div class="item-row">
-        <p>Name:</p>
-        <p>${client.nome}</p>
+    <div class="card-rows-container" hidden>
+      <div class="item-row">
+          <p>Name:</p>
+          <p>${client.nome}</p>
+      </div>
+      <div class="item-row">
+          <p>Surname: </p>
+          <p>${client.cognome}</p>
+      </div>
+      <div class="item-row">
+          <p>Email: </p>
+          <p>${client.email}</p>
+      </div>
+      <div class="item-row">
+          <p>payMethod:</p>
+          <p>${client.metodoPagamento}</p>
+      </div>
     </div>
-    <div class="item-row">
-        <p>Surname: </p>
-        <p>${client.cognome}</p>
-    </div>
-    <div class="item-row">
-        <p>Email: </p>
-        <p>${client.email}</p>
-    </div>
-    <div class="item-row">
-        <p>payMethod:</p>
-        <p>${client.metodoPagamento}</p>
-    </div>
+    <div class="card-btn-container">
+      <button class="details-button">show details</button>  
+      <button class="add-to-order-button">add to order</button>  
+    </div> 
   `;
   
   if (clientCardContainer) {
@@ -45,8 +51,14 @@ export function createClientCard(client: Cliente): void {
     console.error("Elemento con id 'clientCardContainer' non trovato");
   }
 
+  const detailsButton = card.querySelector('.details-button') as HTMLButtonElement;
+  detailsButton.addEventListener("click", () => {
+    detailsButton.innerHTML = detailsButton.innerHTML === 'show details' ? 'hide details' : 'show details';
+    (card.querySelector('.card-rows-container') as HTMLButtonElement).toggleAttribute('hidden');
+  });
+
   // Add a click event listener to the card
-  card.addEventListener("click", () => {
+  (card.querySelector('.add-to-order-button') as HTMLButtonElement).addEventListener("click", () => {
     // Update the newOrder array & the input field on the form
     newOrderIDs[0] = client.ID.toString(); 
     (document.getElementById("userID") as HTMLInputElement).value = client.ID.toString();
