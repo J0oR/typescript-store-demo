@@ -6,6 +6,14 @@ import { createOrderCard, handleOrderFormSubmit } from "./createCards/createOrde
 import { saveToLocalStorage, getLocalStorageData } from "./helpers.js";
 import '../scss/style.scss';
 
+
+import logo from '../imgs/logo.webp';
+const logoImg = document.querySelector(".logo-img") as HTMLImageElement;
+if (logoImg) {
+  logoImg.src = logo;
+}
+
+
 let products: Prodotto[] = [];
 export const processoRiciclo = new ProcessoProduzione(dettagliProcesso.nome, dettagliProcesso.descrizione);
 let clients: Cliente[] = [];

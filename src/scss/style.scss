@@ -1,3 +1,5 @@
+@use "mixins" as mix;
+
 * {
   //border: 1px solid red;
   box-sizing: border-box;
@@ -5,14 +7,46 @@
   margin: 0;
 }
 
+/* Width and height of the scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  display: none;
+}
+
+/* Track (background of the scrollbar) */
+::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 10px;
+}
+
+/* Handle (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
+$color1: #80cbc4;
+$color2: #b4ebe6;
+$color3: #fbf8ef;
+$color4: #FADA7A;
+$color5: #F5F0CD;
+
 body {
   display: flex;
   flex-direction: column;
   padding: 50px;
   gap: 20px;
+  background-color: $color2;
 }
 
-.app-container{
+.app-container {
   margin: 0 auto;
   width: 80%;
   max-width: 800px;
@@ -20,40 +54,61 @@ body {
   flex-direction: column;
   gap: 40px;
 
-  .section{
-    border: 1px solid black;
+  .logo-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+    h1 {
+      font-size: 2rem;
+    }
+    .logo-img {
+      width: 70px;
+    }
+  }
 
-    .section-header{
-      background-color: lightblue;
+  
+}
+
+.section {
+  background-color: $color3;
+  border-radius: 15px !important;
+
+  .section-header {
+    padding-right: 20px;
+    border-radius: 15px;
+    background-color: $color1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+
+    .form-title {
+      padding: 20px;
+      @include mix.font-family("Karla", 500, 1.5rem);
+    }
+
+    .toggle-btn {
+      width: 30px;
+      height: 30px;
+      font-size: 1rem;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
+      transition: all 0.2s ease-in-out;
+      border-radius: 50%;
+      border: none;
+      background-color: $color4;
+      @include mix.font-family("Inconsolata", 400, 1.5rem);
 
-      .form-title{
-        padding: 20px;  
-      }
-
-      button{
-        width: 30px;
-        height: 30px;
-        margin: 10px;
-        font-size: 2rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: all 0.2s ease-in-out;
-
-        &:hover{
-          transform: scale(1.05);
-        }
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
       }
     }
   }
 }
-
 /* Form */
-
-
 
 .form {
   display: flex;
@@ -67,9 +122,8 @@ body {
     width: 100%;
     grid-template-columns: 1fr 1fr;
   }
-  
 
-  .field{
+  .field {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -79,25 +133,30 @@ body {
     @media screen and (max-width: 1200px) {
       grid-column: span 1;
     }
-    
 
-    input, select{
+    input,
+    select {
       height: 40px;
       text-align: center;
-      border-radius: 5px;
-      width: 100%;
+      border-radius: 10px;
+      border: none;
+      background-color: $color2;
+      outline: none;
+      @include mix.font-family("Karla", 400, 1rem);
     }
   }
 
-  button{
+  button {
     display: flex;
     align-self: flex-end;
     justify-content: center;
     align-items: center;
     width: 100px;
     height: 40px;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 10px 20px;
+    background-color: $color4;
+    border: none;
 
     @media screen and (max-width: 1200px) {
       margin: 0 auto;
@@ -105,8 +164,6 @@ body {
       width: 50%;
     }
   }
-
-  
 }
 
 /* item card sections */
@@ -117,18 +174,22 @@ body {
   align-items: center;
   gap: 10px;
   height: fit-content;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  overflow-x: none;
+  overflow-y: scroll;
   padding: 20px 10px;
+  border-radius: 15px !important;
+  padding: 20px;
+  max-height: 500px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 
- /*  &.orderContainer{
+  /*  &.orderContainer{
     height: 300px;
   } */
 
   .card {
-    border: 2px solid black;
     border-radius: 15px;
-    padding: 10px;
+    padding: 20px;
     width: 300px;
     height: fit-content;
     flex-shrink: 0; /* Prevent the cards from shrinking */
@@ -136,11 +197,23 @@ body {
     flex-direction: column;
     justify-content: space-between;
     gap: 10px;
+    background-color: $color5;
+    @include mix.font-family("Karla", 400, 1rem);
 
-    &.order-card{
-      height: fit-content !important;
+
+
+    h3{
+      @include mix.font-family("Inconsolata", 400, 1.3rem);
+      background-color: $color1;
+      padding: 10px;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      width: 116%;
+      margin-left: -8%;
+      margin-top: -19px;
+
     }
-  
+
     .item-row {
       display: flex;
       flex-direction: row;
@@ -148,11 +221,15 @@ body {
       text-align: left;
       width: 100%;
       word-wrap: break-word;
-  
+      border-bottom: 1px solid $color1;
+      padding: 10px 0;
+      
+
       p {
         width: 50%;
         &:first-child {
           width: 40%;
+          font-weight: 700;
         }
         &:last-child {
           width: 60%;
@@ -160,47 +237,44 @@ body {
       }
     }
 
-    .card-btn-container{
+    .card-btn-container {
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
       gap: 30px;
 
-      button{
-        padding: 5px 10px;
-        border-radius: 5px;
-        border: 1px solid black;
-        background-color: lightblue;
+      button {
+        padding: 8px 20px;
+        border-radius: 15px;
+        background-color: $color1;
         transition: all 0.2s ease-in-out;
+        border: none;
 
-        &:hover{
+        &:hover {
           cursor: pointer;
           transform: scale(1.05);
+        }
+
+        &:last-child {
+          background-color: $color4;
         }
       }
     }
 
-    &:hover:not(.order-card){
+    &:hover:not(.order-card) {
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
     }
 
-    &.selected{
-      background-color: lightblue;
+    &.selected {
+      background-color: $color2;
     }
   }
-
 }
 
-
-
-
-
-
-
-#clienteForm{
+#clienteForm {
   display: none;
 }
 
-.hidden{
+.hidden {
   display: none;
 }

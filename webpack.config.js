@@ -30,7 +30,7 @@ module.exports = {
             {
                 test: /\.(webp|png|jpg|jpeg|gif)$/i,
                 type: 'asset/resource',
-            },
+            }
         ]
     },
     plugins: [
@@ -45,7 +45,7 @@ module.exports = {
         open: true,
         static: path.resolve(__dirname, 'dist'),
         hot: true,
-        watchFiles: ['src/**/*.{html,css,js,ts,png,jpg,jpeg,gif,svg,json}']
+        watchFiles: ['src/**/*.{html,css,js,ts,png, webp,jpg,jpeg,gif,svg,json}']
     },
     mode: 'development'
 }

@@ -5,8 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <!--     <link rel="stylesheet" href="../css/style.css">
- -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Karla:ital,wght@0,200..800;1,200..800&display=swap"
+        rel="stylesheet">
     <script src="https://kit.fontawesome.com/de18f9756a.js" crossorigin="anonymous"></script>
 </head>
 
@@ -14,11 +17,16 @@
 
     <div class="app-container">
 
+        <div class="logo-container">
+            <img alt="logo" class="logo-img">
+            <h1>Sunnee</h1>
+        </div>
+
         <!-- Products area -->
         <div class="section">
             <div class="section-header">
                 <h2 class="form-title">Create new product</h2>
-                <button class="product-toggle-btn">-</button>
+                <button class="product-toggle-btn toggle-btn">-</button>
             </div>
             <div class="product-toggable">
                 <form id="productForm" class="form">
@@ -41,7 +49,7 @@
                         </select>
                     </div>
                     <div class="field">
-                        <label for="productAvailability">Availability:</label>
+                        <label for="productAvailability">Availability</label>
                         <select id="productAvailability" required>
                             <option value="disponibile">Disponibile</option>
                             <option value="esaurito">Esaurito</option>
@@ -57,7 +65,7 @@
                             <option value="XL">XL</option>
                         </select>
                     </div>
-                    <button type="submit">create product</button>
+                    <button type="submit">create</button>
                 </form>
                 <div id="prodCardContainer" class="cards-container productsContainer"></div>
             </div>
@@ -66,8 +74,8 @@
         <!-- Client Area -->
         <div class="section">
             <div class="section-header">
-                <h2 class="form-title">Create new client profile</h2>
-                <button class="client-toggle-btn">-</button>
+                <h2 class="form-title">Create new client</h2>
+                <button class="client-toggle-btn toggle-btn">-</button>
             </div>
             <div class="client-toggable">
                 <form id="clientForm" class="form">
@@ -96,7 +104,7 @@
                         </select>
                     </div>
                     <!-- submit -->
-                    <button type="submit">create client</button>
+                    <button type="submit">create</button>
                 </form>
                 <div id="clientCardContainer" class="cards-container clientsContainer"></div>
             </div>
@@ -105,23 +113,23 @@
         <!-- Order Area -->
         <div class="section">
             <div class="section-header">
-                <h2 class="form-title">Form to Create A new order</h2>
-                <button class="order-toggle-btn">-</button>
+                <h2 class="form-title">Create a new order</h2>
+                <button class="order-toggle-btn toggle-btn">-</button>
             </div>
             <div class="order-toggable">
                 <form id="orderForm" class="form">
                     <!-- userID -->
                     <div class="field">
-                        <label for="userID">Selected client ID:</label>
+                        <label for="userID">Selected client ID</label>
                         <input type="number" id="userID" name="userID" required disabled>
                     </div>
                     <!-- product ID -->
                     <div class="field">
-                        <label for="productID">Selected product ID:</label>
+                        <label for="productID">Selected product ID</label>
                         <input type="number" id="productID" name="productID" required disabled>
                     </div>
                     <!-- submit -->
-                    <button type="submit">create order</button>
+                    <button type="submit">create</button>
                 </form>
                 <div id="orderCardContainer" class="cards-container orderContainer"></div>
             </div>
