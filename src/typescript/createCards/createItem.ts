@@ -20,9 +20,22 @@ export function createProduct(tipo: "costume da bagno" | "pareo" | "cappello", I
 
 export function createProductCard(product: Prodotto): void {
   const prodCardContainer = document.getElementById("prodCardContainer");
+  // Add the card to the container
+  if (!prodCardContainer) {
+    console.error("Elemento con id 'prodCardContainer' non trovato");
+    return;
+  }
+
+
+  
+  
+
+  // create new coard
   const card = document.createElement("div");
-  card.classList.add("card", "item-card");
+  card.classList.add("card", "item-card", "new-card");
   card.setAttribute("data-product-id", product.ID.toString()); // Store product ID
+
+  // card template
   card.innerHTML = `
     <h3>Item ${product.ID}</h3>
     <div class="card-rows-container" hidden>
@@ -49,26 +62,35 @@ export function createProductCard(product: Prodotto): void {
     </div> 
   `;
 
-  // Add the card to the container
-  if (!prodCardContainer) {
-    console.error("Elemento con id 'prodCardContainer' non trovato");
-    return;
-  }
+  document.querySelectorAll(".item-card").forEach((card) => {
+    card.classList.add("shift-down");
+    setTimeout(() => card.classList.remove("shift-down"), 300); // Remove class after animation
+  });
+  
+  
+  // select all other prodCardContainer cards but the one we just added and add the class animate-down
   prodCardContainer.prepend(card);
 
-  const detailsButton = card.querySelector('.details-button') as HTMLButtonElement;
+    // Remove animation class after it's done
+    setTimeout(() => card.classList.remove("new-card"), 300);
+    // Select all existing cards and add "shift-down" class
+ 
+
+  // handle show details button
+  const detailsButton = card.querySelector(".details-button") as HTMLButtonElement;
   detailsButton.addEventListener("click", () => {
-    detailsButton.innerHTML = detailsButton.innerHTML === 'show details' ? 'hide details' : 'show details';
-    (card.querySelector('.card-rows-container') as HTMLButtonElement).toggleAttribute('hidden');
+    detailsButton.innerHTML = detailsButton.innerHTML === "show details" ? "hide details" : "show details";
+    (card.querySelector(".card-rows-container") as HTMLButtonElement).toggleAttribute("hidden");
   });
 
-   // Add a click event listener to the card
-   (card.querySelector('.add-to-order-button') as HTMLButtonElement).addEventListener("click", () => {
+  // handle add to order button
+  (card.querySelector(".add-to-order-button") as HTMLButtonElement).addEventListener("click", () => {
     // Update the newOrder array & the input field on the form
     newOrderIDs[1] = product.ID.toString();
     (document.getElementById("productID") as HTMLInputElement).value = product.ID.toString();
+
     // Remove the "selected" class from all other cards & add it to the clicked card
     document.querySelectorAll(".item-card").forEach((c) => c.classList.remove("selected"));
     card.classList.add("selected");
-  }); 
+  });
 }

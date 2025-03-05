@@ -31,12 +31,11 @@
   background: #555;
 }
 
-
 $color1: #80cbc4;
 $color2: #b4ebe6;
 $color3: #fbf8ef;
-$color4: #FADA7A;
-$color5: #F5F0CD;
+$color4: #fada7a;
+$color5: #f5f0cd;
 
 body {
   display: flex;
@@ -66,22 +65,22 @@ body {
       width: 70px;
     }
   }
-
-  
 }
 
 .section {
   background-color: $color3;
   border-radius: 15px !important;
+  overflow: hidden;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 
   .section-header {
     padding-right: 20px;
-    border-radius: 15px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
     background-color: $color1;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
 
     .form-title {
       padding: 20px;
@@ -108,60 +107,82 @@ body {
     }
   }
 }
+
 /* Form */
+
+.client-toggable,
+.product-toggable,
+.order-toggable {
+  display: flex;
+  flex-direction: row;
+  max-height: 400px;
+}
 
 .form {
   display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 20px;
-
-  @media screen and (max-width: 1200px) {
-    display: grid;
-    justify-self: center;
-    width: 100%;
-    grid-template-columns: 1fr 1fr;
-  }
+  flex-direction: column;
+  justify-content: center;
+  flex: 50%;
+  gap: 20px;
+  height: 100%;
+  padding: 0 30px;
+  margin: auto 0;
 
   .field {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    flex: 1;
-    text-align: center;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 10px;
+    height: 40px;
+    overflow: hidden;
 
-    @media screen and (max-width: 1200px) {
-      grid-column: span 1;
+    label {
+      height: 100%;
+      flex: 40%;
+      height: 40px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #eae7d5;
+      @include mix.font-family("Karla", 400, 1rem);
+      padding: 0 20px;
     }
 
     input,
     select {
-      height: 40px;
+      flex: 60%;
+      height: 100%;
       text-align: center;
-      border-radius: 10px;
-      border: none;
       background-color: $color2;
       outline: none;
+      border: none;
       @include mix.font-family("Karla", 400, 1rem);
     }
   }
 
   button {
     display: flex;
-    align-self: flex-end;
     justify-content: center;
     align-items: center;
+    margin: 0 auto;
     width: 100px;
     height: 40px;
     border-radius: 10px;
     padding: 10px 20px;
     background-color: $color4;
     border: none;
+    transition: all 0.2s ease-in-out;
 
     @media screen and (max-width: 1200px) {
       margin: 0 auto;
       grid-column: span 2;
       width: 50%;
+    }
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.05);
     }
   }
 }
@@ -169,19 +190,16 @@ body {
 /* item card sections */
 
 .cards-container {
+  flex: 50%;
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
-  height: fit-content;
-  overflow-x: none;
   overflow-y: scroll;
   padding: 20px 10px;
-  border-radius: 15px !important;
   padding: 20px;
-  max-height: 500px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  background-color: $color5;
 
   /*  &.orderContainer{
     height: 300px;
@@ -189,7 +207,6 @@ body {
 
   .card {
     border-radius: 15px;
-    padding: 20px;
     width: 300px;
     height: fit-content;
     flex-shrink: 0; /* Prevent the cards from shrinking */
@@ -197,21 +214,23 @@ body {
     flex-direction: column;
     justify-content: space-between;
     gap: 10px;
-    background-color: $color5;
+    background-color: $color3;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     @include mix.font-family("Karla", 400, 1rem);
+    overflow: hidden;
+  
 
-
-
-    h3{
+    h3 {
       @include mix.font-family("Inconsolata", 400, 1.3rem);
       background-color: $color1;
       padding: 10px;
       border-top-left-radius: 15px;
       border-top-right-radius: 15px;
-      width: 116%;
-      margin-left: -8%;
-      margin-top: -19px;
+      padding: 20px;
+    }
 
+    .card-rows-container {
+      padding: 0 20px;
     }
 
     .item-row {
@@ -223,7 +242,6 @@ body {
       word-wrap: break-word;
       border-bottom: 1px solid $color1;
       padding: 10px 0;
-      
 
       p {
         width: 50%;
@@ -242,6 +260,7 @@ body {
       flex-direction: row;
       justify-content: flex-start;
       gap: 30px;
+      padding: 20px;
 
       button {
         padding: 8px 20px;
@@ -277,4 +296,38 @@ body {
 
 .hidden {
   display: none;
+}
+
+
+
+
+@keyframes fadeInDown {
+  from {
+    opacity: 1;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(100%);
+  }
+}
+
+/* Apply animation only when adding a new card */
+.new-card {
+  animation: fadeInDown 0.5s ease-in-out;
+}
+
+.shift-down {
+  animation: slideDown 0.5s ease-in-out;
 }

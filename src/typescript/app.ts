@@ -132,17 +132,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const productButton = document.querySelector(".product-toggle-btn") as HTMLButtonElement;
   productButton.addEventListener("click", () => {
     productButton.innerHTML = productButton.innerHTML === '+' ? '-' : '+';
-    (document.querySelector(".product-toggable") as HTMLElement).toggleAttribute('hidden');
+    (document.querySelector(".product-toggable") as HTMLElement).classList.toggle('hidden');
   });
   const clientButton = document.querySelector(".client-toggle-btn") as HTMLButtonElement;
   clientButton.addEventListener("click", () => {
     clientButton.innerHTML = clientButton.innerHTML === '+' ? '-' : '+';
-    (document.querySelector(".client-toggable") as HTMLElement).toggleAttribute('hidden');
+      (document.querySelector(".client-toggable") as HTMLElement).classList.toggle('hidden');
   });
   const orderButton = document.querySelector(".order-toggle-btn") as HTMLButtonElement;
   orderButton.addEventListener("click", () => {
     orderButton.innerHTML = orderButton.innerHTML === '+' ? '-' : '+';
-    (document.querySelector(".order-toggable") as HTMLElement).toggleAttribute('hidden');
+    (document.querySelector(".order-toggable") as HTMLElement).classList.toggle('hidden');
+    
   });
   
   initializeLocalStorageData();
