@@ -49,3 +49,25 @@ export function saveToLocalStorage(key: string, data: any) {
     localStorage.setItem(key, JSON.stringify(data));
   }
 }
+
+
+export function animateCards(card: HTMLDivElement, cardContainer: HTMLDivElement, className: string): void {
+  // Mark all existing cards before adding the new one
+  const existingCards = document.querySelectorAll(className);
+
+  // Delay applying "shift-down" only to existing cards
+  existingCards.forEach((c) => {
+    c.classList.add("shift-down");
+  });
+
+  setTimeout(() => {
+    existingCards.forEach((c) => {
+      c.classList.remove("shift-down");
+    });
+    card.classList.add("new-card");
+    cardContainer.prepend(card);
+    setTimeout(() => {
+      card.classList.remove("new-card");
+    }, 1000);
+  }, 500);
+}

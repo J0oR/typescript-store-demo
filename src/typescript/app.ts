@@ -68,7 +68,7 @@ function attachFormListeners() {
     // Add the product to the products array
     products.push(newProduct);
     // creo card
-    createProductCard(newProduct);
+    createProductCard(newProduct, "form");
     // update localStorage
     saveToLocalStorage("products", products);
   });
@@ -83,7 +83,7 @@ function attachFormListeners() {
       // Add the client to the clients array
       clients.push(newClient);
       // creo card
-      createClientCard(newClient);
+      createClientCard(newClient, "form");
       // update localStorage
       saveToLocalStorage("clients", clients);
     } else {
@@ -101,7 +101,7 @@ function attachFormListeners() {
       // Add the order to the orders array
       orders.push(newOrder);
       // creo card dell'ordine
-      createOrderCard(newOrder);
+      createOrderCard(newOrder, "form");
       // update localStorage
       saveToLocalStorage("orders", orders);
     } else {
@@ -128,6 +128,52 @@ function moveProductToOrders(productID: number): void {
 
 // Initialize application
 document.addEventListener("DOMContentLoaded", () => {
+
+  const prodNavLink = document.querySelector(".prod-nav-link") as HTMLButtonElement;
+  const prodSection = document.querySelector(".product-section") as HTMLElement;
+  const userNavLink = document.querySelector(".client-nav-link") as HTMLButtonElement;
+  const userSection = document.querySelector(".client-section") as HTMLElement;
+  const orderNavLink = document.querySelector(".order-nav-link") as HTMLButtonElement;
+  const orderSection = document.querySelector(".order-section") as HTMLElement;
+
+  prodNavLink.addEventListener("click", () => {
+    prodSection.hidden = false;
+    userSection.hidden = true;
+    orderSection.hidden = true;
+    prodNavLink.disabled = true;
+    prodNavLink.classList.add("active");
+    userNavLink.disabled = false;
+    userNavLink.classList.remove("active");
+    orderNavLink.disabled = false;
+    orderNavLink.classList.remove("active");
+  })
+
+  userNavLink.addEventListener("click", () => {
+    prodSection.hidden = true;
+    orderSection.hidden = true;
+    userSection.hidden = false;
+    prodNavLink.disabled = false;
+    prodNavLink.classList.remove("active");
+    userNavLink.disabled = true;
+    userNavLink.classList.add("active");
+    orderNavLink.disabled = false;
+    orderNavLink.classList.remove("active");
+  })
+
+  orderNavLink.addEventListener("click", () => {
+    prodSection.hidden = true;
+    userSection.hidden = true;
+    orderSection.hidden = false;
+    prodNavLink.disabled = false;
+    prodNavLink.classList.remove("active");
+    userNavLink.disabled = false;
+    userNavLink.classList.remove("active");
+    orderNavLink.disabled = true;
+    orderNavLink.classList.add("active");
+  })
+
+
+  document.querySelector('.product-section')
 
   const productButton = document.querySelector(".product-toggle-btn") as HTMLButtonElement;
   productButton.addEventListener("click", () => {

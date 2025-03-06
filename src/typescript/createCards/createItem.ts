@@ -1,6 +1,7 @@
 import { Prodotto } from "../classes/classes.js";
 import { IDGenerator } from "../helpers.js";
 import { newOrderIDs, processoRiciclo } from "../app.js"; // Import the newOrder from the other file
+import { animateCards } from "../helpers.js";
 
 // Helper functions for form handling and UI updates
 export function handleProductFormSubmit(): Prodotto {
@@ -18,7 +19,7 @@ export function createProduct(tipo: "costume da bagno" | "pareo" | "cappello", I
   return newProduct;
 }
 
-export function createProductCard(product: Prodotto): void {
+export function createProductCard(product: Prodotto, when?: string): void {
   const prodCardContainer = document.getElementById("prodCardContainer");
   // Add the card to the container
   if (!prodCardContainer) {
@@ -26,13 +27,9 @@ export function createProductCard(product: Prodotto): void {
     return;
   }
 
-
-  
-  
-
   // create new coard
   const card = document.createElement("div");
-  card.classList.add("card", "item-card", "new-card");
+  card.classList.add("card", "item-card");
   card.setAttribute("data-product-id", product.ID.toString()); // Store product ID
 
   // card template
@@ -62,19 +59,11 @@ export function createProductCard(product: Prodotto): void {
     </div> 
   `;
 
-  document.querySelectorAll(".item-card").forEach((card) => {
-    card.classList.add("shift-down");
-    setTimeout(() => card.classList.remove("shift-down"), 300); // Remove class after animation
-  });
-  
-  
-  // select all other prodCardContainer cards but the one we just added and add the class animate-down
-  prodCardContainer.prepend(card);
-
-    // Remove animation class after it's done
-    setTimeout(() => card.classList.remove("new-card"), 300);
-    // Select all existing cards and add "shift-down" class
- 
+  if (when && when === "form") {
+    animateCards(card, prodCardContainer as HTMLDivElement, ".item-card");
+  } else {
+    prodCardContainer.prepend(card);
+  }
 
   // handle show details button
   const detailsButton = card.querySelector(".details-button") as HTMLButtonElement;
@@ -94,3 +83,5 @@ export function createProductCard(product: Prodotto): void {
     card.classList.add("selected");
   });
 }
+
+

@@ -40,9 +40,10 @@ $color5: #f5f0cd;
 body {
   display: flex;
   flex-direction: column;
-  padding: 50px;
+  padding: 50px 0;
   gap: 20px;
   background-color: $color2;
+  height: 100vh;
 }
 
 .app-container {
@@ -52,19 +53,13 @@ body {
   display: flex;
   flex-direction: column;
   gap: 40px;
+  height: 100%;
 
-  .logo-container {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 30px;
-    h1 {
-      font-size: 2rem;
-    }
-    .logo-img {
-      width: 70px;
-    }
+  @media screen and (max-width: 800px) {
+    height: fit-content;
   }
+
+  
 }
 
 .section {
@@ -72,6 +67,11 @@ body {
   border-radius: 15px !important;
   overflow: hidden;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  height: 100%;
+
+  @media screen and (max-width: 800px) {
+    height: fit-content;
+  }
 
   .section-header {
     padding-right: 20px;
@@ -115,18 +115,28 @@ body {
 .order-toggable {
   display: flex;
   flex-direction: row;
-  max-height: 400px;
+  height: 100%;
+
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+    height: fit-content;
+  }
 }
 
 .form {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-self: flex-start;
   flex: 50%;
   gap: 20px;
   height: 100%;
-  padding: 0 30px;
-  margin: auto 0;
+  padding: 40px;
+
+  @media screen and (max-width: 800px) {
+    width: 100%;
+  }
+  
 
   .field {
     display: flex;
@@ -201,6 +211,10 @@ body {
   padding: 20px;
   background-color: $color5;
 
+  @media screen and (max-width: 800px) {
+    height: fit-content;
+  }
+
   /*  &.orderContainer{
     height: 300px;
   } */
@@ -243,6 +257,10 @@ body {
       border-bottom: 1px solid $color1;
       padding: 10px 0;
 
+      &:nth-child(4), &:nth-child(5) {
+        border: none;
+      }
+
       p {
         width: 50%;
         &:first-child {
@@ -254,6 +272,15 @@ body {
         }
       }
     }
+
+    // only for orders
+    .order-client-id{
+      background-color: $color2;
+      width: calc(100% + 40px);
+      margin-left: -20px;
+      padding-left: 20px;
+    }
+    
 
     .card-btn-container {
       display: flex;
@@ -273,10 +300,10 @@ body {
           cursor: pointer;
           transform: scale(1.05);
         }
+      }
 
-        &:last-child {
-          background-color: $color4;
-        }
+      .add-to-order-button {
+        background-color: $color4;
       }
     }
 
@@ -319,15 +346,100 @@ body {
   }
   to {
     opacity: 1;
-    transform: translateY(100%);
+    transform: translateY(calc(100% + 10px));
   }
 }
 
 /* Apply animation only when adding a new card */
 .new-card {
-  animation: fadeInDown 0.5s ease-in-out;
+  animation: fadeInDown 0.5s ease-in-out forwards;
 }
 
+/* Apply shift-down animation only to existing cards */
 .shift-down {
-  animation: slideDown 0.5s ease-in-out;
+  animation: slideDown 0.5s ease-in-out forwards;
 }
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(100%);
+  }
+}
+
+
+
+/* NAV */
+
+.nav-bar{
+
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+}
+
+.logo-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 30px;
+  h1 {
+    font-size: 2rem;
+    @include mix.font-family("Inconsolata", 400, 2rem);
+  }
+  .logo-img {
+    width: 70px;
+  }
+}
+
+.nav-links{
+  display: flex;
+  gap:50px;
+  margin-right: 50px;
+
+  @media screen and (max-width: 800px) {
+    margin: 0 auto;
+    gap: 20px;
+  }
+
+  button{
+    border-radius: 15px;
+    padding: 5px 20px;
+    border: none;
+    outline: none;
+    @include mix.font-family("Inconsolata", 400, 1rem);
+    background-color: $color3;
+    
+    &:hover:not(.active){
+      cursor: pointer;
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      transition: all 0.2s ease-in-out;
+    }
+  }
+
+  .active{
+    border: 2px solid $color1;
+    background-color: transparent;
+    color: black;
+  }
+  
+} 
+

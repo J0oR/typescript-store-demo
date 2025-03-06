@@ -1,5 +1,6 @@
 import { Prodotto } from "../classes/classes.js";
 import { Cliente } from "../classes/classes.js";
+import { animateCards } from "../helpers.js";
 
 export function handleOrderFormSubmit(event: Event, clients: Cliente[], products: Prodotto[]): Prodotto | undefined {
   event.preventDefault();
@@ -25,8 +26,12 @@ export function handleOrderFormSubmit(event: Event, clients: Cliente[], products
   return selectedProduct;
 }
 
-export function createOrderCard(order: Prodotto): void {
+export function createOrderCard(order: Prodotto, when?: string): void {
   const orderCardContainer = document.getElementById("orderCardContainer");
+  if (!orderCardContainer) {
+    console.error("Elemento con id 'orderCardContainer' non trovato");
+    return;
+  }
   const card = document.createElement("div");
   card.classList.add("card", "order-card");
   card.innerHTML = `
@@ -48,7 +53,10 @@ export function createOrderCard(order: Prodotto): void {
               <p>state:</p>
               <p>${order.stato}</p>
           </div>
-              <h3>Client ${order.cliente?.ID}</h3>
+          <div class="item-row order-client-id">
+           <p>Client </p>
+           <p>${order.cliente?.ID}</p>
+          </div>
           <div class="item-row">
               <p>name:</p>
               <p>${order.cliente?.nome}</p>
@@ -71,15 +79,15 @@ export function createOrderCard(order: Prodotto): void {
         </div> 
   `;
 
+  if (when && when === "form") {
+      animateCards(card, orderCardContainer as HTMLDivElement, ".order-card");
+    } else {
+      orderCardContainer.prepend(card);
+    }
+
   const detailsButton = card.querySelector('.details-button') as HTMLButtonElement;
   detailsButton.addEventListener("click", () => {
     detailsButton.innerHTML = detailsButton.innerHTML === 'show details' ? 'hide details' : 'show details';
     (card.querySelector('.card-rows-container') as HTMLButtonElement).toggleAttribute('hidden');
   });
-
-  if (orderCardContainer) {
-    orderCardContainer.prepend(card);
-  } else {
-    console.error("Elemento con id 'orderCardContainer' non trovato");
-  }
 }
