@@ -1,6 +1,6 @@
 import { Prodotto } from "../classes/classes.js";
 import { IDGenerator } from "../helpers.js";
-import { newOrderIDs, processoRiciclo } from "../app.js"; // Import the newOrder from the other file
+import { newOrderIDs, processoRiciclo } from "../app.js";
 import { animateCards } from "../helpers.js";
 
 // Helper functions for form handling and UI updates
@@ -79,9 +79,18 @@ export function createProductCard(product: Prodotto, when?: string): void {
     (document.getElementById("productID") as HTMLInputElement).value = product.ID.toString();
 
     // Remove the "selected" class from all other cards & add it to the clicked card
-    document.querySelectorAll(".item-card").forEach((c) => c.classList.remove("selected"));
+    document.querySelectorAll(".item-card").forEach((c) => {
+      const button = c.querySelector(".add-to-order-button") as HTMLButtonElement;
+      if (button) {
+        button.disabled = false; // Remove the disabled attribute
+        button.innerHTML = "Add to Order"; // Reset the innerHTML to initial value
+      }
+      c.classList.remove("selected");
+    });
+
     card.classList.add("selected");
+
+    (card.querySelector(".add-to-order-button") as HTMLButtonElement).innerHTML = "added";
+    (card.querySelector(".add-to-order-button") as HTMLButtonElement).disabled = true;
   });
 }
-
-

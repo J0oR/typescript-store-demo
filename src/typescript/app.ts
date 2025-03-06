@@ -4,15 +4,13 @@ import { handleProductFormSubmit, createProduct, createProductCard } from "./cre
 import { createClientCard, handleClientFormSubmit, createClient } from "./createCards/createUser.js";
 import { createOrderCard, handleOrderFormSubmit } from "./createCards/createOrder.js";
 import { saveToLocalStorage, getLocalStorageData } from "./helpers.js";
-import '../scss/style.scss';
+import "../scss/style.scss";
 
-
-import logo from '../imgs/logo.webp';
+import logo from "../imgs/logo.webp";
 const logoImg = document.querySelector(".logo-img") as HTMLImageElement;
 if (logoImg) {
   logoImg.src = logo;
 }
-
 
 let products: Prodotto[] = [];
 export const processoRiciclo = new ProcessoProduzione(dettagliProcesso.nome, dettagliProcesso.descrizione);
@@ -26,8 +24,10 @@ export let newOrderIDs: [string, string] = ["", ""];
   localStorage.setItem("orders", JSON.stringify(orders)); 
  */
 
+/*
+*  Initialize localstorage data when the page is loaded
+*/
 function initializeLocalStorageData() {
-
   // check localstorage products
   const localStorageproducts = getLocalStorageData<Prodotto[]>("products", []);
   localStorageproducts.forEach((prodotto: Prodotto) => {
@@ -35,7 +35,6 @@ function initializeLocalStorageData() {
     products.push(prod);
     createProductCard(prod);
   });
-
   // check localstorage clients
   const localStorageClients = getLocalStorageData<Cliente[]>("clients", []);
   localStorageClients.forEach((client: Cliente) => {
@@ -43,24 +42,23 @@ function initializeLocalStorageData() {
     clients.push(usr);
     createClientCard(usr);
   });
-
   // check localstorage orders
   const localStorageOrders = getLocalStorageData<Prodotto[]>("orders", []);
   localStorageOrders.forEach((order: Prodotto) => {
     let prod: Prodotto = createProduct(order.tipo, order.ID, order.taglia, order.colore, "disponibile");
     let client: Cliente | undefined = clients.find((client) => client.ID === order.cliente?.ID);
-      client?.ordinaProdotto(prod);
-      orders.push(prod);
-      createOrderCard(prod);
+    client?.ordinaProdotto(prod);
+    orders.push(prod);
+    createOrderCard(prod);
   });
 }
 
-/************************** Forms submit listeners *************************/
-
+/*
+*  Attach form listeners
+*/
 function attachFormListeners() {
-  /*
-   * handle products form
-   */
+
+  // handle products form
   document.getElementById("productForm")?.addEventListener("submit", (event) => {
     event.preventDefault();
     // Get the product data from the form
@@ -72,9 +70,8 @@ function attachFormListeners() {
     // update localStorage
     saveToLocalStorage("products", products);
   });
-  /*
-   * handle clients form
-   */
+  
+  // handle clients form
   document.getElementById("clientForm")?.addEventListener("submit", (event) => {
     event.preventDefault();
     let newClient: Cliente = handleClientFormSubmit();
@@ -90,9 +87,8 @@ function attachFormListeners() {
       console.log("Email già esistente, cliente non aggiunto.");
     }
   });
-  /*
-   * handle orders form
-   */
+  
+  // handle orders form
   document.getElementById("orderForm")?.addEventListener("submit", (event) => {
     let newOrder: Prodotto | undefined = handleOrderFormSubmit(event, clients, products);
     if (newOrder) {
@@ -118,7 +114,6 @@ function moveProductToOrders(productID: number): void {
   products = products.filter((product) => product.ID !== productID);
   // Update localStorage after filtering products
   saveToLocalStorage("products", products);
-  // Trova e rimuovi la card associata al prodotto
   // Find and remove the card based on the product ID
   const card = document.querySelector(`[data-product-id="${productID}"]`);
   if (card) {
@@ -126,72 +121,31 @@ function moveProductToOrders(productID: number): void {
   }
 }
 
-// Initialize application
+/*
+*  Add event listeners to the navigation links
+*/
+function addNavigationListeners() {
+  const navLinks = document.querySelectorAll<HTMLButtonElement>(".nav-link");
+  const sections = document.querySelectorAll<HTMLElement>(".section");
+  // Add click event listener to each navigation link
+  navLinks.forEach((navLink) => {
+    navLink.addEventListener("click", () => {
+      // Hide all sections and show the section associated with the clicked link
+      sections.forEach((section) => (section.hidden = !(navLink.dataset.section! == section.dataset.section!)));
+      // Disable all navigation links and enable the clicked link
+      navLinks.forEach((link) => {
+        link.disabled = link === navLink;
+        link.classList.toggle("active", link === navLink);
+      });
+    });
+  });
+}
+
+/*
+* On page load attach listeners
+*/
 document.addEventListener("DOMContentLoaded", () => {
-
-  const prodNavLink = document.querySelector(".prod-nav-link") as HTMLButtonElement;
-  const prodSection = document.querySelector(".product-section") as HTMLElement;
-  const userNavLink = document.querySelector(".client-nav-link") as HTMLButtonElement;
-  const userSection = document.querySelector(".client-section") as HTMLElement;
-  const orderNavLink = document.querySelector(".order-nav-link") as HTMLButtonElement;
-  const orderSection = document.querySelector(".order-section") as HTMLElement;
-
-  prodNavLink.addEventListener("click", () => {
-    prodSection.hidden = false;
-    userSection.hidden = true;
-    orderSection.hidden = true;
-    prodNavLink.disabled = true;
-    prodNavLink.classList.add("active");
-    userNavLink.disabled = false;
-    userNavLink.classList.remove("active");
-    orderNavLink.disabled = false;
-    orderNavLink.classList.remove("active");
-  })
-
-  userNavLink.addEventListener("click", () => {
-    prodSection.hidden = true;
-    orderSection.hidden = true;
-    userSection.hidden = false;
-    prodNavLink.disabled = false;
-    prodNavLink.classList.remove("active");
-    userNavLink.disabled = true;
-    userNavLink.classList.add("active");
-    orderNavLink.disabled = false;
-    orderNavLink.classList.remove("active");
-  })
-
-  orderNavLink.addEventListener("click", () => {
-    prodSection.hidden = true;
-    userSection.hidden = true;
-    orderSection.hidden = false;
-    prodNavLink.disabled = false;
-    prodNavLink.classList.remove("active");
-    userNavLink.disabled = false;
-    userNavLink.classList.remove("active");
-    orderNavLink.disabled = true;
-    orderNavLink.classList.add("active");
-  })
-
-
-  document.querySelector('.product-section')
-
-  const productButton = document.querySelector(".product-toggle-btn") as HTMLButtonElement;
-  productButton.addEventListener("click", () => {
-    productButton.innerHTML = productButton.innerHTML === '+' ? '-' : '+';
-    (document.querySelector(".product-toggable") as HTMLElement).classList.toggle('hidden');
-  });
-  const clientButton = document.querySelector(".client-toggle-btn") as HTMLButtonElement;
-  clientButton.addEventListener("click", () => {
-    clientButton.innerHTML = clientButton.innerHTML === '+' ? '-' : '+';
-      (document.querySelector(".client-toggable") as HTMLElement).classList.toggle('hidden');
-  });
-  const orderButton = document.querySelector(".order-toggle-btn") as HTMLButtonElement;
-  orderButton.addEventListener("click", () => {
-    orderButton.innerHTML = orderButton.innerHTML === '+' ? '-' : '+';
-    (document.querySelector(".order-toggable") as HTMLElement).classList.toggle('hidden');
-    
-  });
-  
+  addNavigationListeners();
   initializeLocalStorageData();
   attachFormListeners();
 });

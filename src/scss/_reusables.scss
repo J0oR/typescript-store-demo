@@ -1,0 +1,42 @@
+$color1: #80cbc4;
+$color2: #b4ebe6;
+$color3: #fbf8ef;
+$color4: #fada7a;
+$color5: #f5f0cd;
+
+@mixin button-base($color, $padding, $radius) {
+  background-color: $color;
+  padding: $padding;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  border-radius: $radius;
+
+  &:hover:not(.active) {
+    cursor: pointer;
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease-in-out;
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+
+  &.active {
+    border: 2px solid $color2;
+    background-color: transparent;
+    color: black;
+  }
+  
+}
+
+@mixin flex-container($direction: column, $justify: center, $align: center, $wrap: nowrap, $gap: 0) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  flex-wrap: $wrap;
+  gap: $gap;
+}

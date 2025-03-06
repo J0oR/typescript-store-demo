@@ -1,0 +1,139 @@
+@use "mixins" as mix;
+@use "reusables" as *;
+
+.cards-container {
+  flex: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  overflow-y: scroll;
+  padding: 20px 10px;
+  padding: 20px;
+  background-color: $color5;
+
+  @media screen and (max-width: 800px) {
+    height: fit-content;
+  }
+
+  .card {
+    border-radius: 15px;
+    height: fit-content;
+    width: 80%;
+    flex-shrink: 0; /* Prevent the cards from shrinking */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    background-color: $color3;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    @include mix.font-family("Karla", 400, 1rem);
+    overflow: hidden;
+
+    &.selected {
+      border: 2px solid $color4;
+      box-shadow: 0 6px 12px 10px $color4;
+
+    }
+
+    h3 {
+      @include mix.font-family("Inconsolata", 400, 1.3rem);
+      background-color: $color1;
+      padding: 10px;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      padding: 20px;
+    }
+
+    .card-rows-container {
+      padding: 0 20px;
+
+      .item-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        text-align: left;
+        width: 100%;
+        word-wrap: break-word;
+        border-bottom: 1px solid $color1;
+        padding: 10px 0;
+  
+        &:nth-child(4),
+        &:nth-child(5) {
+          border: none;
+        }
+  
+        p {
+          width: 50%;
+          &:first-child {
+            width: 40%;
+            font-weight: 700;
+          }
+          &:last-child {
+            width: 60%;
+          }
+        }
+  
+        &.order-client-id {
+          background-color: $color2;
+          width: calc(100% + 40px);
+          margin-left: -20px;
+          padding-left: 20px;
+        }
+      }
+    }
+
+    .card-btn-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      gap: 30px;
+      padding: 20px;
+
+      button {
+        @include button-base($color1, 8px 20px, 15px);
+
+        &.add-to-order-button {
+          background-color: $color4;
+        }
+      }
+    }
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+/* Apply animation only when adding a new card */
+.new-card {
+  animation: fadeInDown 0.5s ease-in-out forwards;
+}
+
+/* Apply shift-down animation only to existing cards */
+.shift-down {
+  animation: slideDown 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(100%);
+  }
+}

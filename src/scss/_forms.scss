@@ -1,0 +1,63 @@
+@use "mixins" as mix;
+@use "reusables" as *;
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-self: flex-start;
+    flex: 50%;
+    gap: 20px;
+    height: 100%;
+    padding: 40px;
+  
+    @media screen and (max-width: 800px) {
+      width: 100%;
+    }
+    
+  
+    .field {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      overflow: hidden;
+      gap: 10px;
+      margin-bottom: 10px;
+  
+      label {
+        width: 100%;
+        height: 100%;
+        height: 40px;
+        @include mix.font-family("Karla", 400, 1rem);
+        padding: 0 20px;
+        text-transform: uppercase;
+      }
+  
+      input,
+      select {
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid $color1; ;
+        outline: none;
+        @include mix.font-family("Karla", 400, 1rem);
+        padding: 0 20px;
+        color: gray;
+      }
+    }
+  
+    button {
+      @include button-base($color4, 8px 20px, 15px);
+      margin: 0 auto;
+      width: 100px;
+      height: 40px;
+      background-color: $color4;
+      
+      @media screen and (max-width: 1200px) {
+        width: 50%;
+      }
+    }
+  }
+  

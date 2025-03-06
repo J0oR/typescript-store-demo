@@ -69,7 +69,16 @@ export function createClientCard(client: Cliente, when?: string): void {
     newOrderIDs[0] = client.ID.toString();
     (document.getElementById("userID") as HTMLInputElement).value = client.ID.toString();
     // Remove the "selected" class from all other cards & add it to the clicked card
-    document.querySelectorAll(".user-card").forEach((c) => c.classList.remove("selected"));
+    document.querySelectorAll(".user-card").forEach((c) => {
+      const button = c.querySelector(".add-to-order-button") as HTMLButtonElement;
+      if (button) {
+        button.disabled = false; // Remove the disabled attribute
+        button.innerHTML = "Add to Order"; // Reset the innerHTML to initial value
+      }
+      c.classList.remove("selected");
+    });
     card.classList.add("selected");
+    (card.querySelector(".add-to-order-button") as HTMLButtonElement).innerHTML = "added";
+    (card.querySelector(".add-to-order-button") as HTMLButtonElement).disabled = true;
   });
 }

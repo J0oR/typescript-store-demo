@@ -17,26 +17,25 @@
 
     <div class="app-container">
 
-        <div class="nav-bar" style="display: flex;justify-content: space-between;align-items: center;">
+        <div class="nav-bar">
             <div class="logo-container">
                 <img alt="logo" class="logo-img">
                 <h1>Sunnee</h1>
             </div>
     
             <div class="nav-links">
-                <button class="prod-nav-link active" disabled>products</button>
-                <button class="client-nav-link">clients</button>
-                <button class="order-nav-link">orders</button>
+                <button class="nav-link prod-nav-link active" data-section="product" disabled>products</button>
+                <button class="nav-link client-nav-link" data-section="client">clients</button>
+                <button class="nav-link order-nav-link" data-section="order">orders</button>
             </div>
         </div>
 
         <!-- Products area -->
-        <div class="section product-section">
+        <div class="section product-section" data-section="product">
             <div class="section-header">
                 <h2 class="form-title">Create new product</h2>
-                <button class="product-toggle-btn toggle-btn">-</button>
             </div>
-            <div class="product-toggable">
+            <div class="section-body">
                 <form id="productForm" class="form">
                     <div class="field">
                         <label for="productType">Type</label>
@@ -80,12 +79,11 @@
         </div>
 
         <!-- Client Area -->
-        <div class="section client-section" hidden>
+        <div class="section client-section"  data-section="client" hidden>
             <div class="section-header">
                 <h2 class="form-title">Create new client</h2>
-                <button class="client-toggle-btn toggle-btn">-</button>
             </div>
-            <div class="client-toggable">
+            <div class="section-body">
                 <form id="clientForm" class="form">
                     <!-- firstname -->
                     <div class="field">
@@ -119,12 +117,11 @@
         </div>
 
         <!-- Order Area -->
-        <div class="section order-section" hidden>
+        <div class="section order-section"  data-section="order" hidden>
             <div class="section-header">
                 <h2 class="form-title">Create a new order</h2>
-                <button class="order-toggle-btn toggle-btn">-</button>
             </div>
-            <div class="order-toggable">
+            <div class="section-body">
                 <form id="orderForm" class="form">
                     <!-- userID -->
                     <div class="field">
@@ -145,8 +142,6 @@
 
     </div>
 
-    <!--     <script type="module" src="../javascript/app.js"></script>
- -->
 </body>
 
 </html>
