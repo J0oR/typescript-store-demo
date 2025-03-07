@@ -1,7 +1,4 @@
 node_modules
-
-/dist
-
-/src/javascript
-
-/src/css
+dist/
+src/javascript
+src/css
