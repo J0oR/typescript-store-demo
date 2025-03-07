@@ -83,7 +83,7 @@ Here's a list of the key technologies and libraries I used to build this app:
 
 Click the link below to try the Firebase-hosted version, or scroll down to the next section if you'd prefer to run the project locally.
 
-[Typescript Store Demo link](https://s2i-tech-news.web.app/)
+[Typescript Store Demo link](https://ts-store-demo.web.app)
 
 
 <p align="right" style="margin-top:50px"><a href="#readme-top">⬆️ back to top</a></p>
