@@ -12,9 +12,10 @@
   padding: 20px 10px;
   padding: 20px;
   background-color: $color5;
+  flex: 2;
 
   @media screen and (max-width: 800px) {
-    height: fit-content;
+    max-height: 1000px;
   }
 
   .card {
@@ -35,6 +36,10 @@
       border: 2px solid $color4;
       box-shadow: 0 6px 12px 10px $color4;
 
+    }
+
+    @media screen and (max-width: 800px) {
+      width: 100%;
     }
 
     h3 {
@@ -87,12 +92,16 @@
     .card-btn-container {
       display: flex;
       flex-direction: row;
-      justify-content: flex-start;
+      justify-content: center;
       gap: 30px;
       padding: 20px;
 
       button {
         @include button-base($color1, 8px 20px, 15px);
+
+        &:first-child{
+          background-color: $color2;
+        }
 
         &.add-to-order-button {
           background-color: $color4;

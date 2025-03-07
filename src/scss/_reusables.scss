@@ -13,7 +13,7 @@ $color5: #f5f0cd;
   transition: all 0.3s ease-in-out;
   border-radius: $radius;
 
-  &:hover:not(.active) {
+  &:hover:not(.active):not(.nav-link) {
     cursor: pointer;
     transform: scale(1.05);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);

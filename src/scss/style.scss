@@ -10,31 +10,6 @@
   margin: 0;
 }
 
-/* Width and height of the scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-  display: none;
-}
-
-/* Track (background of the scrollbar) */
-::-webkit-scrollbar-track {
-  background: #f0f0f0;
-  border-radius: 10px;
-}
-
-/* Handle (the draggable part) */
-::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 10px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-
 
 body {
   display: flex;
@@ -46,6 +21,14 @@ body {
   padding: 0;
   margin: 0;
   overflow: hidden;
+  @include mix.font-family("Karla", 400, 16px);
+  @media screen and (max-width: 800px) {
+    overflow-y: scroll;
+  }
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .app-container {
@@ -72,7 +55,8 @@ body {
   margin: auto auto;
 
   @media screen and (max-width: 800px) {
-    height: fit-content;
+    height: 1000px;
+    width: 90%;
   }
 
   .section-header {
@@ -85,8 +69,8 @@ body {
     align-items: center;
 
     .form-title {
-      padding: 20px;
-      @include mix.font-family("Karla", 500, 1.5rem);
+      padding: 40px;
+      @include mix.font-family("Inconsolata", 500, 1.5rem);
     }
   }
 
@@ -113,21 +97,25 @@ body {
   justify-content: flex-start;
   align-items: center;
   gap: 150px;
-  padding: 20px;
   width: 15%;
   background-color: $color1;
+  padding-bottom: 20px;
   
   @media screen and (max-width: 800px) {
     flex-direction: column;
-    gap: 40px;
+    gap: 20px;
+    width: 100%;
   }
 }
 
 .logo-container {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  gap: 30px;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+  margin-top: 20px;
   h1 {
     font-size: 2rem;
     @include mix.font-family("Inconsolata", 400, 2rem);
@@ -141,6 +129,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 50px;
+  width: 100%;
 
   @media screen and (max-width: 800px) {
     margin: 0 auto;
@@ -148,9 +137,22 @@ body {
   }
 
   button {
-    @include button-base($color3, 5px 20px, 15px);
-    padding: 5px 20px;
-    @include mix.font-family("Inconsolata", 400, 1rem);
-    background-color: $color3;
+    @include button-base($color3, 10px 20px, 5px);
+    @include mix.font-family("Inconsolata", 500, 1.3rem);
+    background-color: transparent;
+    color: black;
+    width: 90%;
+    margin: 0 auto;
+ 
+    &.active{
+      background-color: $color2;
+      border: none;
+      color: black;
+    }
+
+    &:hover:not(.active){
+      color:$color4;
+    }
   }
+
 }

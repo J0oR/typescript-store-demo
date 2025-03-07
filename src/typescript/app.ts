@@ -25,8 +25,8 @@ export let newOrderIDs: [string, string] = ["", ""];
  */
 
 /*
-*  Initialize localstorage data when the page is loaded
-*/
+ *  Initialize localstorage data when the page is loaded
+ */
 function initializeLocalStorageData() {
   // check localstorage products
   const localStorageproducts = getLocalStorageData<Prodotto[]>("products", []);
@@ -54,10 +54,9 @@ function initializeLocalStorageData() {
 }
 
 /*
-*  Attach form listeners
-*/
+ *  Attach form listeners
+ */
 function attachFormListeners() {
-
   // handle products form
   document.getElementById("productForm")?.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -70,7 +69,7 @@ function attachFormListeners() {
     // update localStorage
     saveToLocalStorage("products", products);
   });
-  
+
   // handle clients form
   document.getElementById("clientForm")?.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -83,11 +82,23 @@ function attachFormListeners() {
       createClientCard(newClient, "form");
       // update localStorage
       saveToLocalStorage("clients", clients);
+      // remove error message if it exists
+      document.querySelector("#error-message-email-existing")?.remove();
     } else {
-      console.log("Email già esistente, cliente non aggiunto.");
+      // Check if the input is empty
+      let message = document.querySelector("#error-message-email-existing");
+      if (!message) {
+        // Ensure the message isn't added multiple times
+        message = document.createElement("span");
+        message.id = "error-message-email-existing";
+        message.textContent = "A client with this email already exists!";
+        (message as HTMLElement).style.color = "red"; // Optional styling
+        document.getElementById("clientForm")?.appendChild(message);
+        console.log("Email già esistente, cliente non aggiunto.");
+      }
     }
   });
-  
+
   // handle orders form
   document.getElementById("orderForm")?.addEventListener("submit", (event) => {
     let newOrder: Prodotto | undefined = handleOrderFormSubmit(event, clients, products);
@@ -122,8 +133,8 @@ function moveProductToOrders(productID: number): void {
 }
 
 /*
-*  Add event listeners to the navigation links
-*/
+ *  Add event listeners to the navigation links
+ */
 function addNavigationListeners() {
   const navLinks = document.querySelectorAll<HTMLButtonElement>(".nav-link");
   const sections = document.querySelectorAll<HTMLElement>(".section");
@@ -142,8 +153,8 @@ function addNavigationListeners() {
 }
 
 /*
-* On page load attach listeners
-*/
+ * On page load attach listeners
+ */
 document.addEventListener("DOMContentLoaded", () => {
   addNavigationListeners();
   initializeLocalStorageData();

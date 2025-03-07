@@ -9,6 +9,38 @@ export function handleOrderFormSubmit(event: Event, clients: Cliente[], products
   const userID = parseInt((orderForm.querySelector("#userID") as HTMLSelectElement).value, 10);
   const productID = parseInt((orderForm.querySelector("#productID") as HTMLSelectElement).value, 10);
 
+  if (!userID) {
+    // Check if the input is empty
+    let message = document.querySelector("#error-message1");
+    if (!message) {
+      // Ensure the message isn't added multiple times
+      message = document.createElement("span");
+      message.id = "error-message1";
+      message.textContent = "Select a user first";
+      (message as HTMLElement).style.color = "red"; // Optional styling
+      orderForm.appendChild(message);
+    }
+  }
+  else{
+    document.querySelector("#error-message1")?.remove();
+  }
+
+  if(!productID) {
+    // Check if the input is empty
+    let message = document.querySelector("#error-message2");
+    if (!message) {
+      // Ensure the message isn't added multiple times
+      message = document.createElement("span");
+      message.id = "error-message2";
+      message.textContent = "Select a product first";
+      (message as HTMLElement).style.color = "red"; // Optional styling
+      orderForm.appendChild(message);
+    }
+  }
+  else{
+    document.querySelector("#error-message2")?.remove();
+  }
+
   let selectedUser = clients.find((client) => client.ID === userID);
   let selectedProduct = products.find((item) => item.ID === productID);
 
@@ -80,14 +112,14 @@ export function createOrderCard(order: Prodotto, when?: string): void {
   `;
 
   if (when && when === "form") {
-      animateCards(card, orderCardContainer as HTMLDivElement, ".order-card");
-    } else {
-      orderCardContainer.prepend(card);
-    }
+    animateCards(card, orderCardContainer as HTMLDivElement, ".order-card");
+  } else {
+    orderCardContainer.prepend(card);
+  }
 
-  const detailsButton = card.querySelector('.details-button') as HTMLButtonElement;
+  const detailsButton = card.querySelector(".details-button") as HTMLButtonElement;
   detailsButton.addEventListener("click", () => {
-    detailsButton.innerHTML = detailsButton.innerHTML === 'show details' ? 'hide details' : 'show details';
-    (card.querySelector('.card-rows-container') as HTMLButtonElement).toggleAttribute('hidden');
+    detailsButton.innerHTML = detailsButton.innerHTML === "show details" ? "hide details" : "show details";
+    (card.querySelector(".card-rows-container") as HTMLButtonElement).toggleAttribute("hidden");
   });
 }
