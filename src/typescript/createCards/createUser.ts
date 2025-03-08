@@ -2,7 +2,7 @@ import { Cliente } from "../classes/classes.js";
 import { IDGenerator } from "../helpers.js";
 import { newOrderIDs } from "../app.js";
 import { animateCards } from "../helpers.js";
-import { createRows, detailsButtonHandler, addToOrderButtonHandler } from "./cardsHelpers.js";
+import { createRows, addToOrderButtonHandler } from "./cardsHelpers.js";
 
 export function handleClientFormSubmit(): Cliente {
   const formData = new FormData(document.getElementById("clientForm") as HTMLFormElement);
@@ -30,18 +30,14 @@ export function createClientCard(client: Cliente, when?: string): void {
     { label: "name", value: client.nome },
     { label: "surname", value: client.cognome },
     { label: "email", value: client.email },
-    { label: "payment", value: client.metodoPagamento }
-  ]
+    { label: "payment", value: client.metodoPagamento },
+  ];
 
   card.innerHTML = `
-    <h3>Client ${client.ID}</h3>
-    <div class="card-rows-container" hidden>
-      ${createRows(clientDetails, "Client details", "")}
-    </div>
-    <div class="card-btn-container">
-      <button class="details-button">show details</button>  
-      <button class="add-to-order-button">add to order</button>  
-    </div> 
+    <span>${client.ID}</span>
+    ${createRows(clientDetails, "Client details", "")}
+    <input type="checkbox" id="item-checkbox" name="item-checkbox" class="add-to-order-checkbox">
+  
   `;
 
   if (when && when === "form") {
@@ -50,7 +46,7 @@ export function createClientCard(client: Cliente, when?: string): void {
     clientCardContainer.prepend(card);
   }
 
-  detailsButtonHandler(card);
+  //detailsButtonHandler(card);
 
   addToOrderButtonHandler(card, client.ID.toString(), newOrderIDs, "client");
 }

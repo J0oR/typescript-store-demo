@@ -2,7 +2,7 @@ import { processoRiciclo } from "../app.js";
 import { Prodotto } from "../classes/classes.js";
 import { Cliente } from "../classes/classes.js";
 import { animateCards, formErrorMessage } from "../helpers.js";
-import { createRows, detailsButtonHandler } from "./cardsHelpers.js";
+import { createRows } from "./cardsHelpers.js";
 
 export function handleOrderFormSubmit(event: Event, clients: Cliente[]): Prodotto | undefined {
   event.preventDefault();
@@ -51,18 +51,10 @@ export function createOrderCard(order: Prodotto, when?: string): void {
   ]
 
   card.innerHTML = `
-        <h3>Item ${order.ID}</h3>
-        <div class="card-rows-container" hidden>
-          ${createRows(itemDetails, "Item details", "")}
-          <div class="item-row order-client-id">
-            <p>Client </p>
-            <p>${order.cliente?.ID}</p>
-          </div>
-          ${createRows(clientDetails, "Client details", "")}
-        </div>
-        <div class="card-btn-container">
-          <button class="details-button">show details</button>  
-        </div> 
+        <span>${order.ID}</span>
+        ${createRows(itemDetails, "Item details", "")}
+        <span class="order-client-id">${order.cliente?.ID}</span>
+        ${createRows(clientDetails, "Client details", "")}
   `;
 
   if (when && when === "form") {
@@ -71,5 +63,5 @@ export function createOrderCard(order: Prodotto, when?: string): void {
     orderCardContainer.prepend(card);
   }
 
-  detailsButtonHandler(card);
+  //detailsButtonHandler(card);
 }

@@ -16,11 +16,13 @@ export const processoRiciclo = new ProcessoProduzione(dettagliProcesso.nome, det
 let clients: Cliente[] = [];
 export let newOrderIDs: [string, string] = ["", ""];
 
-/*
-  localStorage.setItem("products", JSON.stringify(products));
-  localStorage.setItem("clients", JSON.stringify(clients));
-  localStorage.setItem("orders", JSON.stringify(orders)); 
+
+/*   
+localStorage.setItem("products", "");
+localStorage.setItem("clients", "");
+localStorage.setItem("orders", "");  
 */
+
 
 /*
  *  INITIALIZE LOCALSTORAGE DATA WHEN THE PAGE IS LOADED
@@ -28,6 +30,7 @@ export let newOrderIDs: [string, string] = ["", ""];
 function initializeLocalStorageData() {
   // check localstorage products
   const localStorageproducts = getLocalStorageData<Prodotto[]>("products", []);
+  if (!localStorageproducts) return;
   localStorageproducts.forEach((prodotto: Prodotto) => {
     console.log("AAAA", prodotto);
     const prod = createProduct(prodotto.tipo, prodotto.ID, prodotto.taglia, prodotto.colore, prodotto.stato);
@@ -36,6 +39,7 @@ function initializeLocalStorageData() {
   });
   // check localstorage clients
   const localStorageClients = getLocalStorageData<Cliente[]>("clients", []);
+  if (!localStorageClients) return;
   localStorageClients.forEach((client: Cliente) => {
     const usr = createClient(client.nome, client.cognome, client.metodoPagamento, client.email, client.ID);
     clients.push(usr);
@@ -43,6 +47,7 @@ function initializeLocalStorageData() {
   });
   // check localstorage orders
   const localStorageOrders = getLocalStorageData<Prodotto[]>("orders", []);
+  if (!localStorageOrders) return;
   localStorageOrders.forEach((order: Prodotto) => {
     let prod: Prodotto = createProduct(order.tipo, order.ID, order.taglia, order.colore, "disponibile");
     let client: Cliente | undefined = clients.find((client) => client.ID === order.cliente?.ID);

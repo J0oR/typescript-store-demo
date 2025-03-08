@@ -1,112 +1,69 @@
 @use "mixins" as mix;
 @use "reusables" as *;
 
-.cards-container {
-  flex: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-  overflow-y: scroll;
-  padding: 20px 10px;
+.cards-header {
   padding: 20px;
+  padding-right: 32px;
   background-color: $color5;
-  flex: 2;
+  width: 100%;
 
-  @media screen and (max-width: 800px) {
-    max-height: 1000px;
+  .spans-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+
+    span {
+      flex: 1;
+      @include mix.font-family("Inconsolata", 500, 1rem);
+    }
   }
+}
+
+.cards-container {
+  background-color: $color3;
+  height: 100%;
+  overflow-y: auto;
+  height: calc(100vh - 275px);
+  padding: 20px;
+
+
 
   .card {
-    border-radius: 15px;
-    height: fit-content;
-    width: 80%;
-    flex-shrink: 0; /* Prevent the cards from shrinking */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 10px;
+    height: 50px;
+    width: 100%;
     background-color: $color3;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     @include mix.font-family("Karla", 400, 1rem);
-    overflow: hidden;
+    border-bottom: 1px solid $color1;
+
+
+    &.item-card, &.user-card {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      align-items: center;
+      gap: 10px;
+    }
+
+    &.order-card {
+      display: grid;
+      align-items: center;
+      gap: 10px;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      height: 100px;
+    }
 
     &.selected {
-      border: 2px solid $color4;
-      box-shadow: 0 6px 12px 10px $color4;
-
+      background-color: $color2;
     }
 
-    @media screen and (max-width: 800px) {
-      width: 100%;
+    span {
+      flex: 1;
+      word-break: break-all;
     }
 
-    h3 {
-      @include mix.font-family("Inconsolata", 400, 1.3rem);
-      background-color: $color1;
-      padding: 10px;
-      border-top-left-radius: 15px;
-      border-top-right-radius: 15px;
-      padding: 20px;
-    }
-
-    .card-rows-container {
-      padding: 0 20px;
-
-      .item-row {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        text-align: left;
-        width: 100%;
-        word-wrap: break-word;
-        border-bottom: 1px solid $color1;
-        padding: 10px 0;
-  
-        &:nth-child(4),
-        &:nth-child(5) {
-          border: none;
-        }
-  
-        p {
-          width: 50%;
-          &:first-child {
-            width: 40%;
-            font-weight: 700;
-          }
-          &:last-child {
-            width: 60%;
-          }
-        }
-  
-        &.order-client-id {
-          background-color: $color2;
-          width: calc(100% + 40px);
-          margin-left: -20px;
-          padding-left: 20px;
-        }
-      }
-    }
-
-    .card-btn-container {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      gap: 30px;
-      padding: 20px;
-
-      button {
-        @include button-base($color1, 8px 20px, 15px);
-
-        &:first-child{
-          background-color: $color2;
-        }
-
-        &.add-to-order-button {
-          background-color: $color4;
-        }
-      }
+    input{
+      flex: 1;
     }
   }
 }
@@ -117,12 +74,12 @@
 
 /* Apply animation only when adding a new card */
 .new-card {
-  animation: fadeInDown 0.5s ease-in-out forwards;
+  animation: fadeInDown 0.3s ease-in-out forwards;
 }
 
 /* Apply shift-down animation only to existing cards */
 .shift-down {
-  animation: slideDown 0.5s ease-in-out forwards;
+  animation: slideDown 0.3s ease-in-out forwards;
 }
 
 @keyframes fadeInDown {
@@ -146,3 +103,30 @@
     transform: translateY(100%);
   }
 }
+
+/* // Target a specific element 
+.cards-container {
+  overflow-y: scroll; // Enables vertical scrolling
+  scrollbar-width: thin; // Firefox: 'auto' or 'thin'
+  scrollbar-color: $color1 $color5; // Firefox: thumb | track
+}
+
+// Webkit (Chrome, Edge, Safari) 
+.cards-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.cards-container::-webkit-scrollbar-track {
+  background: $color2; // Track color
+  border-radius: 10px;
+}
+
+.cards-container::-webkit-scrollbar-thumb {
+  background: #888; // Thumb color
+  border-radius: 10px;
+}
+
+.cards-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+ */

@@ -2,7 +2,7 @@ import { Prodotto } from "../classes/classes.js";
 import { IDGenerator } from "../helpers.js";
 import { newOrderIDs, processoRiciclo } from "../app.js";
 import { animateCards } from "../helpers.js";
-import { createRows, detailsButtonHandler, addToOrderButtonHandler } from "./cardsHelpers.js";
+import { createRows, addToOrderButtonHandler } from "./cardsHelpers.js";
 
 export function handleProductFormSubmit(): Prodotto {
   const formData = new FormData(document.getElementById("productForm") as HTMLFormElement);
@@ -40,15 +40,11 @@ export function createProductCard(product: Prodotto, when?: string): void {
 
   // card template
   card.innerHTML = `
-    <h3>Item ${product.ID}</h3>
-    <div class="card-rows-container" hidden>
+      <span>${product.ID}</span>
       ${createRows(itemDetails, "Item details", "")}
-    </div>
-    <div class="card-btn-container">
-      <button class="details-button">show details</button>  
-      <button class="add-to-order-button">add to order</button>  
-    </div> 
-  `;
+      <input type="checkbox" id="item-checkbox" name="item-checkbox" class="add-to-order-checkbox">
+      `;
+      //<button class="add-to-order-button">add to order</button>
 
   if (when && when === "form") {
     animateCards(card, prodCardContainer as HTMLDivElement, ".item-card");
@@ -56,6 +52,6 @@ export function createProductCard(product: Prodotto, when?: string): void {
     prodCardContainer.prepend(card);
   }
 
-  detailsButtonHandler(card);
+  //detailsButtonHandler(card);
   addToOrderButtonHandler(card, product.ID.toString(), newOrderIDs, "product");
 }

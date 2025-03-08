@@ -58,8 +58,8 @@ export function animateCards(card: HTMLDivElement, cardContainer: HTMLDivElement
     cardContainer.prepend(card);
     setTimeout(() => {
       card.classList.remove("new-card");
-    }, 1000);
-  }, 500);
+    }, 300);
+  },300);
 }
 
 /*
