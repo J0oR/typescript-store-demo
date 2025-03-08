@@ -26,6 +26,9 @@ export interface IProcessoProduzione {
   nome: dettagliProcesso.nome;
   descrizione: dettagliProcesso.descrizione;
   prodottiInProduzione: IProdotto[];
+  prodottiOrdinati: IProdotto[];
+
   // aggiungere un prodotto al processo di produzione.
   aggiungiProdotto(prodotto: IProdotto): void;
+  spostaInOrdinati(prodotto: IProdotto): void;
 }

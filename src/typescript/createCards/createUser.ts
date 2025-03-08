@@ -2,13 +2,14 @@ import { Cliente } from "../classes/classes.js";
 import { IDGenerator } from "../helpers.js";
 import { newOrderIDs } from "../app.js";
 import { animateCards } from "../helpers.js";
+import { createRows, detailsButtonHandler, addToOrderButtonHandler } from "./cardsHelpers.js";
 
 export function handleClientFormSubmit(): Cliente {
-  const clientForm = document.getElementById("clientForm") as HTMLElement;
-  const firstName = (clientForm.querySelector("#firstName") as HTMLSelectElement).value;
-  const lastName = (clientForm.querySelector("#lastName") as HTMLSelectElement).value;
-  const email = (clientForm.querySelector("#email") as HTMLSelectElement).value;
-  const paymentMethod = (clientForm.querySelector("#paymentMethod") as HTMLSelectElement).value;
+  const formData = new FormData(document.getElementById("clientForm") as HTMLFormElement);
+  const firstName = formData.get("firstName") as string;
+  const lastName = formData.get("lastName") as string;
+  const email = formData.get("email") as string;
+  const paymentMethod = formData.get("paymentMethod") as string;
   return createClient(firstName, lastName, paymentMethod, email, IDGenerator.generateID());
 }
 
@@ -25,25 +26,17 @@ export function createClientCard(client: Cliente, when?: string): void {
 
   const card = document.createElement("div");
   card.classList.add("card", "user-card");
+  const clientDetails = [
+    { label: "name", value: client.nome },
+    { label: "surname", value: client.cognome },
+    { label: "email", value: client.email },
+    { label: "payment", value: client.metodoPagamento }
+  ]
+
   card.innerHTML = `
     <h3>Client ${client.ID}</h3>
     <div class="card-rows-container" hidden>
-      <div class="item-row">
-          <p>Name:</p>
-          <p>${client.nome}</p>
-      </div>
-      <div class="item-row">
-          <p>Surname: </p>
-          <p>${client.cognome}</p>
-      </div>
-      <div class="item-row">
-          <p>Email: </p>
-          <p>${client.email}</p>
-      </div>
-      <div class="item-row">
-          <p>payMethod:</p>
-          <p>${client.metodoPagamento}</p>
-      </div>
+      ${createRows(clientDetails, "Client details", "")}
     </div>
     <div class="card-btn-container">
       <button class="details-button">show details</button>  
@@ -57,28 +50,7 @@ export function createClientCard(client: Cliente, when?: string): void {
     clientCardContainer.prepend(card);
   }
 
-  const detailsButton = card.querySelector(".details-button") as HTMLButtonElement;
-  detailsButton.addEventListener("click", () => {
-    detailsButton.innerHTML = detailsButton.innerHTML === "show details" ? "hide details" : "show details";
-    (card.querySelector(".card-rows-container") as HTMLButtonElement).toggleAttribute("hidden");
-  });
+  detailsButtonHandler(card);
 
-  // Add a click event listener to the card
-  (card.querySelector(".add-to-order-button") as HTMLButtonElement).addEventListener("click", () => {
-    // Update the newOrder array & the input field on the form
-    newOrderIDs[0] = client.ID.toString();
-    (document.getElementById("userID") as HTMLInputElement).value = client.ID.toString();
-    // Remove the "selected" class from all other cards & add it to the clicked card
-    document.querySelectorAll(".user-card").forEach((c) => {
-      const button = c.querySelector(".add-to-order-button") as HTMLButtonElement;
-      if (button) {
-        button.disabled = false; // Remove the disabled attribute
-        button.innerHTML = "Add to Order"; // Reset the innerHTML to initial value
-      }
-      c.classList.remove("selected");
-    });
-    card.classList.add("selected");
-    (card.querySelector(".add-to-order-button") as HTMLButtonElement).innerHTML = "added";
-    (card.querySelector(".add-to-order-button") as HTMLButtonElement).disabled = true;
-  });
+  addToOrderButtonHandler(card, client.ID.toString(), newOrderIDs, "client");
 }

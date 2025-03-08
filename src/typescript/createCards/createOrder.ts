@@ -1,61 +1,30 @@
+import { processoRiciclo } from "../app.js";
 import { Prodotto } from "../classes/classes.js";
 import { Cliente } from "../classes/classes.js";
-import { animateCards } from "../helpers.js";
+import { animateCards, formErrorMessage } from "../helpers.js";
+import { createRows, detailsButtonHandler } from "./cardsHelpers.js";
 
-export function handleOrderFormSubmit(event: Event, clients: Cliente[], products: Prodotto[]): Prodotto | undefined {
+export function handleOrderFormSubmit(event: Event, clients: Cliente[]): Prodotto | undefined {
   event.preventDefault();
-
-  const orderForm = document.getElementById("orderForm") as HTMLElement;
+  // Get the selected user and product
+  const orderForm = document.getElementById("orderForm") as HTMLFormElement;
   const userID = parseInt((orderForm.querySelector("#userID") as HTMLSelectElement).value, 10);
   const productID = parseInt((orderForm.querySelector("#productID") as HTMLSelectElement).value, 10);
-
-  if (!userID) {
-    // Check if the input is empty
-    let message = document.querySelector("#error-message1");
-    if (!message) {
-      // Ensure the message isn't added multiple times
-      message = document.createElement("span");
-      message.id = "error-message1";
-      message.textContent = "Select a user first";
-      (message as HTMLElement).style.color = "red"; // Optional styling
-      orderForm.appendChild(message);
-    }
-  }
-  else{
-    document.querySelector("#error-message1")?.remove();
-  }
-
-  if(!productID) {
-    // Check if the input is empty
-    let message = document.querySelector("#error-message2");
-    if (!message) {
-      // Ensure the message isn't added multiple times
-      message = document.createElement("span");
-      message.id = "error-message2";
-      message.textContent = "Select a product first";
-      (message as HTMLElement).style.color = "red"; // Optional styling
-      orderForm.appendChild(message);
-    }
-  }
-  else{
-    document.querySelector("#error-message2")?.remove();
-  }
-
+  // se l'utente o il prodotto non sono selezionati, mostra un messaggio di errore
+  formErrorMessage(!userID, "orderForm", "error-message1", "Select a user first");
+  formErrorMessage(!productID, "orderForm", "error-message2", "Select a product first");
+  // se l'utente o il prodotto non sono selezionati, restituisci undefined
+  if (!userID || !productID) return undefined;
+  // Get the selected user and product
   let selectedUser = clients.find((client) => client.ID === userID);
-  let selectedProduct = products.find((item) => item.ID === productID);
-
-  if (!selectedUser || !selectedProduct) {
-    console.log("Undefined", selectedProduct, selectedUser);
-    return undefined;
-  }
-  selectedUser.ordinaProdotto(selectedProduct);
+  let selectedProduct = processoRiciclo.prodottiInProduzione.find((item) => item.ID === productID);
+  // Add the product to the user's order
+  selectedUser?.ordinaProdotto(selectedProduct!);
   // Reset the form
-  (orderForm.querySelector("#userID") as HTMLSelectElement).value = "";
-  (orderForm.querySelector("#productID") as HTMLSelectElement).value = "";
+  orderForm.reset();
   // Remove the 'selected' class from all cards
-  document.querySelectorAll(".user-card").forEach((c) => c.classList.remove("selected"));
-  document.querySelectorAll(".item-card").forEach((c) => c.classList.remove("selected"));
-  return selectedProduct;
+  document.querySelectorAll(".user-card, .item-card").forEach((c) => c.classList.remove("selected"));
+  return selectedProduct as Prodotto;
 }
 
 export function createOrderCard(order: Prodotto, when?: string): void {
@@ -66,45 +35,30 @@ export function createOrderCard(order: Prodotto, when?: string): void {
   }
   const card = document.createElement("div");
   card.classList.add("card", "order-card");
+
+  const itemDetails = [
+    { label: "type", value: order.tipo },
+    { label: "color", value: order.colore },
+    { label: "size", value: order.taglia },
+    { label: "availability", value: order.stato },
+  ];
+
+  const clientDetails = [
+    { label: "name", value: order.cliente?.nome },
+    { label: "surname", value: order.cliente?.cognome },
+    { label: "payment", value: order.cliente?.metodoPagamento },
+    { label: "email", value: order.cliente?.email }
+  ]
+
   card.innerHTML = `
         <h3>Item ${order.ID}</h3>
         <div class="card-rows-container" hidden>
-          <div class="item-row">
-              <p>type: </p>
-              <p>${order.tipo}</p>
-          </div>
-          <div class="item-row">
-              <p>color: </p>
-              <p>${order.colore}</p>
-          </div>
-          <div class="item-row">
-              <p>size: </p>
-              <p>${order.taglia}</p>
-          </div>
-          <div class="item-row">
-              <p>state:</p>
-              <p>${order.stato}</p>
-          </div>
+          ${createRows(itemDetails, "Item details", "")}
           <div class="item-row order-client-id">
-           <p>Client </p>
-           <p>${order.cliente?.ID}</p>
+            <p>Client </p>
+            <p>${order.cliente?.ID}</p>
           </div>
-          <div class="item-row">
-              <p>name:</p>
-              <p>${order.cliente?.nome}</p>
-          </div>
-          <div class="item-row">
-              <p>surname:</p>
-              <p>${order.cliente?.cognome}</p>
-          </div>
-          <div class="item-row">
-              <p>payment:</p>
-              <p>${order.cliente?.metodoPagamento}</p>
-          </div>
-          <div class="item-row">
-              <p>email:</p>
-              <p>${order.cliente?.email}</p>
-          </div>
+          ${createRows(clientDetails, "Client details", "")}
         </div>
         <div class="card-btn-container">
           <button class="details-button">show details</button>  
@@ -117,9 +71,5 @@ export function createOrderCard(order: Prodotto, when?: string): void {
     orderCardContainer.prepend(card);
   }
 
-  const detailsButton = card.querySelector(".details-button") as HTMLButtonElement;
-  detailsButton.addEventListener("click", () => {
-    detailsButton.innerHTML = detailsButton.innerHTML === "show details" ? "hide details" : "show details";
-    (card.querySelector(".card-rows-container") as HTMLButtonElement).toggleAttribute("hidden");
-  });
+  detailsButtonHandler(card);
 }

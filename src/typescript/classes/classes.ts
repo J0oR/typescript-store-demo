@@ -6,7 +6,6 @@ import { Logger } from "../helpers.js";
 
 export class Prodotto implements IProdotto {
   cliente: ICliente | null = null;
-  statoOrdine: "non ordinato" | "ordinato" = "non ordinato";
 
   constructor(public tipo: "costume da bagno" | "pareo" | "cappello", public ID: number, public taglia: string, public colore: string, public stato: "esaurito" | "disponibile") {}
 
@@ -24,7 +23,6 @@ export class Prodotto implements IProdotto {
     } else {
       this.cliente = cliente;
       message = `Il cliente ${cliente.nome} ${cliente.cognome} ha effettuato un ordine`;
-      this.statoOrdine = "ordinato";
       this.stato = "esaurito";
     }
     Logger.logSeparator(message, "-", `\n${JSON.stringify(this, null, 2)}\n`);
@@ -44,6 +42,7 @@ export class Cliente implements ICliente {
 
 export class ProcessoProduzione implements IProcessoProduzione {
   prodottiInProduzione: IProdotto[] = [];
+  prodottiOrdinati: IProdotto[] = [];
 
   constructor(public nome: dettagliProcesso.nome, public descrizione: dettagliProcesso.descrizione) {}
 
@@ -54,6 +53,16 @@ export class ProcessoProduzione implements IProcessoProduzione {
     } else {
       this.prodottiInProduzione.unshift(prodotto);
       let message = `Prodotto aggiunto al processo di produzione ${this.nome}`;
+      Logger.logSeparator(message, "#", `\n${JSON.stringify(prodotto, null, 2)}\n\n`);
+    }
+  }
+
+  spostaInOrdinati(prodotto: IProdotto): void {
+    // prendi il prodotto, spostalo da prodottiInProduzione a prodottiOrdinati
+    const prodottoIndex = this.prodottiInProduzione.findIndex((p) => p.ID === prodotto.ID);
+    if (prodottoIndex !== -1) {
+      this.prodottiOrdinati.push(this.prodottiInProduzione.splice(prodottoIndex, 1)[0]);
+      let message = `Prodotto spostato in ordini ${this.nome}`;
       Logger.logSeparator(message, "#", `\n${JSON.stringify(prodotto, null, 2)}\n\n`);
     }
   }
