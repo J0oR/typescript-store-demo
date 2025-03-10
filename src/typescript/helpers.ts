@@ -71,6 +71,7 @@ export function formErrorMessage(condition: boolean, elemID: string, messageText
     element.value = ""; // Clear value
     element.classList.add("input-error"); // Add the error class to apply placeholder color
   } else {
+    element.placeholder = "";
     element.classList.remove("input-error"); // Remove the error class when the condition is not met
   }
 }
