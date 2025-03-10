@@ -49,13 +49,9 @@ Specifically:
 That said, I took the opportunity to implement a UI and a data persistence system using localStorage.
 
 #### Features:  
-- every card has a collapsible details section
-- the app is entirely responsive
 - The **Products Section** allows adding new products (by instantiating a new Product class and adding it to processoProduzione) and adding the product to the "New Order" page.
 - The **Clients Section** allows creating new clients (by instantiating a new Client class) and adding the client to the "New Product" page.
 - The **Orders Section** allows creating a new order by matching the previously selected client and product, using the ordinaProdotto() method of the Client class.
-
-<img src="/src/imgs/neworder.png" alt="layout" style="border-radius: 15px;">
 
 
 <p align="right" style="margin-top:50px"><a href="#readme-top">⬆️ back to top</a></p>
