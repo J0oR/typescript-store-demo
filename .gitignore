@@ -2,4 +2,19 @@ node_modules
 dist/
 src/javascript
 src/css
-.firebase
+.firebase/
+
+# Environment variables  
+.env  
+.env.*  
+
+# Logs  
+npm-debug.log*  
+yarn-debug.log*  
+yarn-error.log*  
+
+# OS-specific files  
+.DS_Store  
+Thumbs.db
+
+.cache/
