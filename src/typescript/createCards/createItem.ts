@@ -52,6 +52,5 @@ export function createProductCard(product: Prodotto, when?: string): void {
     prodCardContainer.prepend(card);
   }
 
-  //detailsButtonHandler(card);
   addToOrderButtonHandler(card, product.ID, newOrderIDs, "product");
 }

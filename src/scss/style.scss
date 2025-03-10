@@ -11,28 +11,32 @@
 }
 
 html{
-  overflow: hidden;
+  overflow-x: auto;
 }
 
 body {
   gap: 20px;
-  background-color: $color2;
-  width: 100vw;
+  //width: 100vw;
   padding: 0;
   margin: 0;
   height: 100vh;
+  width: 100%;
 }
 
 .app-container {
   display: flex;
-  width: 100vw;
+  //width: 100vw;
   height: 100vh;
+  width: 1280px;
+  margin: 0 auto;
+  
 }
 
 .section {
   background-color: #ffffff;
-  width: 100vw;
+  //width: 100vw;
   height: 100vh;
+  width: 100%;
 
   .section-header {
     padding-right: 20px;
@@ -63,13 +67,6 @@ body {
   padding-bottom: 20px;
   box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.2) !important;
   z-index: 1000;
-
-
-  @media screen and (max-width: 800px) {
-    flex-direction: column;
-    gap: 20px;
-    width: 100%;
-  }
 }
 
 .logo-container {
@@ -81,11 +78,11 @@ body {
   width: 100%;
   margin-top: 20px;
 
-  @media screen and (min-width: 801px) and (max-width: 1200px) {
+ /*  @media screen and (min-width: 801px) and (max-width: 1200px) {
     flex-direction: column;
     gap: 20px;
     width: 100%;
-  }
+  } */
 
   h1 {
     font-size: 2rem;
