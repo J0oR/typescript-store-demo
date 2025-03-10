@@ -11,6 +11,7 @@
 }
 
 html{
+  overflow: hidden;
 }
 
 body {
@@ -20,17 +21,7 @@ body {
   padding: 0;
   margin: 0;
   height: 100vh;
-
- /*  // scrollba handling
-  @include mix.font-family("Karla", 400, 16px);
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  -ms-overflow-style: none;
-  scrollbar-width: none; */
-
 }
-
 
 .app-container {
   display: flex;
@@ -39,8 +30,7 @@ body {
 }
 
 .section {
-  background-color: $color3;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
   width: 100vw;
   height: 100vh;
 
@@ -56,12 +46,7 @@ body {
       @include mix.font-family("Inconsolata", 500, 1.5rem);
     }
   }
-
-  .section-body{
-   
-  }
 }
-
 
 /* 
 * NAV 
@@ -72,11 +57,14 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  gap: 150px;
+  gap: 50px;
   width: 20%;
-  background-color: $color1;
+  background-color: $color5;
   padding-bottom: 20px;
-  
+  box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.2) !important;
+  z-index: 1000;
+
+
   @media screen and (max-width: 800px) {
     flex-direction: column;
     gap: 20px;
@@ -111,31 +99,32 @@ body {
 .nav-links {
   display: flex;
   flex-direction: column;
-  gap: 50px;
   width: 100%;
-
-  @media screen and (max-width: 800px) {
-    margin: 0 auto;
-    gap: 20px;
-  }
+  gap: 10px;
 
   button {
-    @include button-base($color3, 10px 20px, 5px);
-    @include mix.font-family("Inconsolata", 500, 1.3rem);
+    @include button-base($color3, 5px, 8px);
+    @include mix.font-family("Inconsolata", 500, 1rem);
     background-color: transparent;
     color: black;
     width: 90%;
     margin: 0 auto;
- 
-    &.active{
-      background-color: $color2;
+
+    &.active {
+      background-color: $color4;
       border: none;
       color: black;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     }
 
-    &:hover:not(.active){
-      color:$color4;
+    &:hover:not(.active) {
+      color: $color1;
     }
   }
+}
 
+
+.input-error::placeholder {
+  border-color: #FF0000 !important;
+  color: red !important;  /* Ensures the placeholder text is red */
 }

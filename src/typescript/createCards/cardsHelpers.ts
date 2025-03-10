@@ -1,7 +1,7 @@
 /*
  * create rows
  */
-export function createRows(array: { label: string; value: string | undefined }[], label: string, value: string): string {
+export function createRows(array: {value: string | undefined }[]): string {
   return array
     .map(
       (item) => `
@@ -31,7 +31,6 @@ export function addToOrderButtonHandler(card: HTMLElement, selectedElementID: st
     const inputFieldId = switcher === "client" ? "userID" : "productID";
     const cardClass = switcher === "client" ? ".user-card" : ".item-card";
 
-    console.log(card, selectedElementID, newOrderIDs, switcher);
     addToOrderCheckbox.addEventListener("change", () => {
 
     // Update the order IDs and the input field
@@ -39,8 +38,6 @@ export function addToOrderButtonHandler(card: HTMLElement, selectedElementID: st
     (document.getElementById(inputFieldId) as HTMLInputElement).value = selectedElementID;
 
     // Remove the "selected" class from all other cards & add it to the clicked card
-    // Remove the "selected" class from all other cards
-    // enable the "Add to Order" button and change its innerHTML
     document.querySelectorAll(cardClass).forEach((c) => {
       const checkbox = (c.querySelector(".add-to-order-checkbox") as HTMLInputElement);
       checkbox.checked = false;
@@ -50,7 +47,5 @@ export function addToOrderButtonHandler(card: HTMLElement, selectedElementID: st
     // Add the "selected" class to the clicked card, disable the "Add to Order" button and change its innerHTML
     card.classList.add("selected");
     addToOrderCheckbox.checked = true;
-    //addToOrderButton.innerHTML = "added";
-    //addToOrderButton.disabled = true;
   });
 }

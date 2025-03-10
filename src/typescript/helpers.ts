@@ -13,12 +13,11 @@ export class Logger {
 }
 
 /*
-* Genera un ID univoco
-*/
+ * Genera un ID univoco
+ */
 export class IDGenerator {
-  static generateID(): number {
-    // Combina timestamp e numero casuale
-    return Date.now() * 1000 + Math.floor(Math.random() * 1000);
+  static generateID(): string {
+    return (Date.now().toString(36) + Math.random().toString(36).slice(2, 5)).toUpperCase();
   }
 }
 
@@ -59,27 +58,20 @@ export function animateCards(card: HTMLDivElement, cardContainer: HTMLDivElement
     setTimeout(() => {
       card.classList.remove("new-card");
     }, 300);
-  },300);
+  }, 300);
 }
 
 /*
-* handle form error messages
-*/
-export function formErrorMessage(condition: boolean, formID: string, messageID: string, messageText: string): void {
+ * handle form error messages
+ */
+export function formErrorMessage(condition: boolean, elemID: string, messageText: string): void {
+  const element = document.getElementById(elemID) as HTMLInputElement;
   if (condition) {
-    // Check if the input is empty
-    let message = document.getElementById(messageID);
-    if (!message) {
-      // Ensure the message isn't added multiple times
-      message = document.createElement("span");
-      message.id = messageID;
-      message.textContent = messageText;
-      (message as HTMLElement).style.color = "red"; // Optional styling
-      document.getElementById(formID)?.appendChild(message);
-    }
-  }
-  else
-  {
-    document.getElementById(messageID)?.remove();
+    element.placeholder = messageText;
+    element.value = ""; // Clear value
+    element.classList.add("input-error"); // Add the error class to apply placeholder color
+  } else {
+    element.classList.remove("input-error"); // Remove the error class when the condition is not met
   }
 }
+

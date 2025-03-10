@@ -8,11 +8,11 @@ export function handleOrderFormSubmit(event: Event, clients: Cliente[]): Prodott
   event.preventDefault();
   // Get the selected user and product
   const orderForm = document.getElementById("orderForm") as HTMLFormElement;
-  const userID = parseInt((orderForm.querySelector("#userID") as HTMLSelectElement).value, 10);
-  const productID = parseInt((orderForm.querySelector("#productID") as HTMLSelectElement).value, 10);
+  let userID = (orderForm.querySelector("#userID") as HTMLInputElement).value;
+  let productID = (orderForm.querySelector("#productID") as HTMLInputElement).value;
   // se l'utente o il prodotto non sono selezionati, mostra un messaggio di errore
-  formErrorMessage(!userID, "orderForm", "error-message1", "Select a user first");
-  formErrorMessage(!productID, "orderForm", "error-message2", "Select a product first");
+  formErrorMessage(!userID, "userID", "user not selected!");
+  formErrorMessage(!productID, "productID", "product not selected!");
   // se l'utente o il prodotto non sono selezionati, restituisci undefined
   if (!userID || !productID) return undefined;
   // Get the selected user and product
@@ -36,25 +36,23 @@ export function createOrderCard(order: Prodotto, when?: string): void {
   const card = document.createElement("div");
   card.classList.add("card", "order-card");
 
-  const itemDetails = [
-    { label: "type", value: order.tipo },
-    { label: "color", value: order.colore },
-    { label: "size", value: order.taglia },
-    { label: "availability", value: order.stato },
+  const row1 = [
+    {value: order.ID},
+    {value: order.colore},
+    {value: order.cliente?.ID},
+    {value: order.cliente?.email}
   ];
-
-  const clientDetails = [
-    { label: "name", value: order.cliente?.nome },
-    { label: "surname", value: order.cliente?.cognome },
-    { label: "payment", value: order.cliente?.metodoPagamento },
-    { label: "email", value: order.cliente?.email }
+  
+  const row2 = [
+    {value: order.tipo},
+    {value: order.taglia},
+    {value: order.cliente?.nome + " " + order.cliente?.cognome},
+    {value: order.cliente?.metodoPagamento}
   ]
 
   card.innerHTML = `
-        <span>${order.ID}</span>
-        ${createRows(itemDetails, "Item details", "")}
-        <span class="order-client-id">${order.cliente?.ID}</span>
-        ${createRows(clientDetails, "Client details", "")}
+        ${createRows(row1)}
+        ${createRows(row2)}
   `;
 
   if (when && when === "form") {

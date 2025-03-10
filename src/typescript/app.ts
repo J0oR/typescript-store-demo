@@ -78,7 +78,7 @@ function attachFormListeners() {
     event.preventDefault();
     let newClient: Cliente = handleClientFormSubmit();
     let clientExists = clients.some((client) => client.email === newClient.email);
-    formErrorMessage(clientExists, "clientForm", "error-message-email-existing", "A client with this email already exists!");
+    formErrorMessage(clientExists, "email", "existing email!");
     // Check if the email already exists
     if (!clientExists) {
       // Add client to clients array, create card and update localStorage
@@ -100,6 +100,12 @@ function attachFormListeners() {
       // Update localStorage after filtering products
       saveToLocalStorage("products", processoRiciclo.prodottiInProduzione);
       saveToLocalStorage("orders", processoRiciclo.prodottiOrdinati);
+
+      document.querySelectorAll(".user-card").forEach((c) => {
+        const checkbox = (c.querySelector(".add-to-order-checkbox") as HTMLInputElement);
+        checkbox.checked = false;
+        c.classList.remove("selected");
+      });
     }
   });
 }

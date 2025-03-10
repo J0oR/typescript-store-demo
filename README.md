@@ -36,7 +36,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<img src="/src/imgs/layout.png" alt="layout" style="border-radius: 15px;">
+<img src="/src/imgs/app.gif" alt="layout" style="border-radius: 15px;">
 
 ######
 The project is designed to certify the student's skills in TypeScript by developing the operational structure of a fictional beachwear brand.

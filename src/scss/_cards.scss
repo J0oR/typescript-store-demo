@@ -1,69 +1,72 @@
 @use "mixins" as mix;
 @use "reusables" as *;
 
-.cards-header {
+%list-columns{
+  display: grid;
+  gap: 20px;
   padding: 20px;
-  padding-right: 32px;
+  word-break: break-all;
+}
+
+.list-container{
+  margin: 20px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.cards-header {
   background-color: $color5;
   width: 100%;
 
   .spans-container {
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 10px;
+    @extend %list-columns;
+
+    &.products-spans-container{
+      grid-template-columns: 0.1fr repeat(5, 1fr);
+    }
+
+    &.clients-spans-container{
+      grid-template-columns: 0.1fr repeat(4, 1fr);
+    }
+
+    &.orders-spans-container{
+      grid-template-columns: repeat(4, 1fr);
+    }
 
     span {
-      flex: 1;
       @include mix.font-family("Inconsolata", 500, 1rem);
     }
   }
 }
 
 .cards-container {
-  background-color: $color3;
-  height: 100%;
-  overflow-y: auto;
-  height: calc(100vh - 275px);
-  padding: 20px;
-
-
+  height: calc(100vh - 201px);
+  display: flex;
+  flex-direction: column;
 
   .card {
-    height: 50px;
-    width: 100%;
-    background-color: $color3;
-    @include mix.font-family("Karla", 400, 1rem);
+    background-color: #FFFFFF;
+    @include mix.font-family("Karla", 400, 0.9rem);
     border-bottom: 1px solid $color1;
+    @extend %list-columns;
 
-
-    &.item-card, &.user-card {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      align-items: center;
-      gap: 10px;
+    &.item-card {
+      grid-template-columns: 0.1fr repeat(5, 1fr);
+    }
+    
+    &.user-card{
+      grid-template-columns: 0.1fr repeat(4, 1fr);
     }
 
     &.order-card {
-      display: grid;
-      align-items: center;
-      gap: 10px;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       grid-template-rows: repeat(2, 1fr);
-      height: 100px;
     }
 
     &.selected {
-      background-color: $color2;
-    }
-
-    span {
-      flex: 1;
-      word-break: break-all;
-    }
-
-    input{
-      flex: 1;
+      background-color: #F7FAFB;
     }
   }
 }
@@ -104,11 +107,12 @@
   }
 }
 
-/* // Target a specific element 
+// Target a specific element 
 .cards-container {
-  overflow-y: scroll; // Enables vertical scrolling
-  scrollbar-width: thin; // Firefox: 'auto' or 'thin'
-  scrollbar-color: $color1 $color5; // Firefox: thumb | track
+  overflow-y: scroll; 
+  scrollbar-width: thin;
+  scrollbar-color: $color2 $color4; 
+
 }
 
 // Webkit (Chrome, Edge, Safari) 
@@ -117,16 +121,15 @@
 }
 
 .cards-container::-webkit-scrollbar-track {
-  background: $color2; // Track color
+  background: $color2; 
   border-radius: 10px;
 }
 
 .cards-container::-webkit-scrollbar-thumb {
-  background: #888; // Thumb color
+  background: #888; 
   border-radius: 10px;
 }
 
 .cards-container::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
- */

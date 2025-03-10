@@ -32,9 +32,6 @@
 
         <!-- Products area -->
         <div class="section product-section" data-section="product">
-            <div class="section-header">
-                <h2 class="form-title">Create new product</h2>
-            </div>
             <div class="section-body">
                 <form id="productForm" class="form">
                     <div class="field">
@@ -74,25 +71,24 @@
                     </div>
                     <button type="submit">create</button>
                 </form>
-                <div class="cards-header products-header">
-                    <div class="spans-container">
-                        <span>ID</span>
-                        <span>CATEGORY</span>
-                        <span>COLOR</span>
-                        <span>SIZE</span>
-                        <span>AVAILABILITY</span>
-                        <span> </span>
+                <div class="list-container">
+                    <div class="cards-header">
+                        <div class="spans-container products-spans-container">
+                            <span></span>
+                            <span>ID</span>
+                            <span>CATEGORY</span>
+                            <span>COLOR</span>
+                            <span>SIZE</span>
+                            <span>AVAILABILITY</span>
+                        </div>
                     </div>
+                    <div id="prodCardContainer" class="cards-container productsContainer"></div>
                 </div>
-                <div id="prodCardContainer" class="cards-container productsContainer"></div>
             </div>
         </div>
 
         <!-- Client Area -->
         <div class="section client-section"  data-section="client" hidden>
-            <div class="section-header">
-                <h2 class="form-title">Create new client</h2>
-            </div>
             <div class="section-body">
                 <form id="clientForm" class="form">
                     <!-- firstname -->
@@ -122,41 +118,49 @@
                     <!-- submit -->
                     <button type="submit">create</button>
                 </form>
-                <div class="cards-header clients-header">
-                    <div class="spans-container">
-                        <span>ID</span>
-                        <span>NAME</span>
-                        <span>SURNAME</span>
-                        <span>EMAIL</span>
-                        <span>PAYMENT</span>
-                        <span> </span>
+                <div class="list-container">
+                    <div class="cards-header">
+                        <div class="spans-container clients-spans-container">
+                            <span></span>
+                            <span>ID</span>
+                            <span>CUSTOMER</span>
+                            <span>EMAIL</span>
+                            <span>PAYMENT</span>
+                        </div>
                     </div>
+                    <div id="clientCardContainer" class="cards-container clientsContainer"></div>
                 </div>
-                <div id="clientCardContainer" class="cards-container clientsContainer"></div>
             </div>
         </div>
 
         <!-- Order Area -->
         <div class="section order-section"  data-section="order" hidden>
-            <div class="section-header">
-                <h2 class="form-title">Create a new order</h2>
-            </div>
             <div class="section-body">
                 <form id="orderForm" class="form">
                     <!-- userID -->
                     <div class="field">
                         <label for="userID">Selected client ID</label>
-                        <input type="number" id="userID" name="userID" required disabled>
+                        <input type="text" id="userID" name="userID" required disabled>
                     </div>
                     <!-- product ID -->
                     <div class="field">
                         <label for="productID">Selected product ID</label>
-                        <input type="number" id="productID" name="productID" required disabled>
+                        <input type="text" id="productID" name="productID" required disabled>
                     </div>
                     <!-- submit -->
                     <button type="submit">create</button>
                 </form>
-                <div id="orderCardContainer" class="cards-container orderContainer"></div>
+                <div class="list-container">
+                    <div class="cards-header">
+                        <div class="spans-container orders-spans-container">
+                            <span>ORDER</span>
+                            <span>ORDER DETAILS</span>
+                            <span>CUSTOMER</span>
+                            <span>CUSTOMER DETAILS</span>
+                        </div>
+                    </div>
+                    <div id="orderCardContainer" class="cards-container orderContainer"></div>
+                </div>
             </div>
         </div>
 

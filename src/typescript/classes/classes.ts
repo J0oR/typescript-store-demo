@@ -7,7 +7,7 @@ import { Logger } from "../helpers.js";
 export class Prodotto implements IProdotto {
   cliente: ICliente | null = null;
 
-  constructor(public tipo: "costume da bagno" | "pareo" | "cappello", public ID: number, public taglia: string, public colore: string, public stato: "esaurito" | "disponibile") {}
+  constructor(public tipo: "costume da bagno" | "pareo" | "cappello", public ID: string, public taglia: string, public colore: string, public stato: "esaurito" | "disponibile") {}
 
   assegnaCliente(cliente: ICliente): void {
     let message = "";
@@ -32,7 +32,7 @@ export class Prodotto implements IProdotto {
 /**************************** CLIENTE ******************************/
 
 export class Cliente implements ICliente {
-  constructor(public nome: string, public cognome: string, public metodoPagamento: string, public email: string, public ID: number) {}
+  constructor(public nome: string, public cognome: string, public metodoPagamento: string, public email: string, public ID: string) {}
   ordinaProdotto(prodotto: IProdotto): void {
     prodotto.assegnaCliente(this);
   }

@@ -1,6 +1,6 @@
 export interface IProdotto {
   tipo: "costume da bagno" | "pareo" | "cappello";
-  ID: number;
+  ID: string;
   taglia: string;
   colore: string;
   stato: "esaurito" | "disponibile";
@@ -13,7 +13,7 @@ export interface ICliente {
   cognome: string;
   metodoPagamento: string;
   email: string;
-  ID: number;
+  ID: string;
   ordinaProdotto(prodotto: IProdotto): void;
 }
 

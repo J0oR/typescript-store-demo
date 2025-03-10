@@ -12,7 +12,7 @@ export function handleProductFormSubmit(): Prodotto {
   return createProduct(tipo, IDGenerator.generateID(), taglia, colore, "disponibile");
 }
 
-export function createProduct(tipo: "costume da bagno" | "pareo" | "cappello", ID: number, taglia: string, colore: string, stato: "esaurito" | "disponibile"): Prodotto {
+export function createProduct(tipo: "costume da bagno" | "pareo" | "cappello", ID: string, taglia: string, colore: string, stato: "esaurito" | "disponibile"): Prodotto {
   const newProduct = new Prodotto(tipo, ID, taglia, colore, stato);
   processoRiciclo.aggiungiProdotto(newProduct);
   return newProduct;
@@ -29,20 +29,20 @@ export function createProductCard(product: Prodotto, when?: string): void {
   // create new coard
   const card = document.createElement("div");
   card.classList.add("card", "item-card");
-  card.setAttribute("data-product-id", product.ID.toString()); // Store product ID
+  card.setAttribute("data-product-id", product.ID); // Store product ID
 
   const itemDetails = [
-    { label: "category", value: product.tipo },
-    { label: "color", value: product.colore },
-    { label: "size", value: product.taglia },
-    { label: "availability", value: product.stato },
+    {value: product.ID },
+    {value: product.tipo },
+    {value: product.colore },
+    {value: product.taglia },
+    {value: product.stato },
   ];
 
   // card template
   card.innerHTML = `
-      <span>${product.ID}</span>
-      ${createRows(itemDetails, "Item details", "")}
       <input type="checkbox" id="item-checkbox" name="item-checkbox" class="add-to-order-checkbox">
+      ${createRows(itemDetails)}
       `;
       //<button class="add-to-order-button">add to order</button>
 
@@ -53,5 +53,5 @@ export function createProductCard(product: Prodotto, when?: string): void {
   }
 
   //detailsButtonHandler(card);
-  addToOrderButtonHandler(card, product.ID.toString(), newOrderIDs, "product");
+  addToOrderButtonHandler(card, product.ID, newOrderIDs, "product");
 }
