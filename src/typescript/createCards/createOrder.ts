@@ -13,11 +13,14 @@ export function handleOrderFormSubmit(event: Event, clients: Cliente[]): Prodott
   // se l'utente o il prodotto non sono selezionati, mostra un messaggio di errore
   formErrorMessage(!userID, "userID", "user not selected!");
   formErrorMessage(!productID, "productID", "product not selected!");
+
   // se l'utente o il prodotto non sono selezionati, restituisci undefined
   if (!userID || !productID) return undefined;
   // Get the selected user and product
   let selectedUser = clients.find((client) => client.ID === userID);
   let selectedProduct = processoRiciclo.prodottiInProduzione.find((item) => item.ID === productID);
+  formErrorMessage(selectedProduct?.stato as string !== "disponibile", "productID", "product out of stock!");
+  if (selectedProduct?.stato as string !== "disponibile") return undefined;
   // Add the product to the user's order
   selectedUser?.ordinaProdotto(selectedProduct!);
   // Reset the form

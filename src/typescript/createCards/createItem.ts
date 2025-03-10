@@ -9,7 +9,8 @@ export function handleProductFormSubmit(): Prodotto {
   const tipo = formData.get("productType") as "costume da bagno" | "pareo" | "cappello";
   const colore = formData.get("productColor") as string;
   const taglia = formData.get("productSize") as string;
-  return createProduct(tipo, IDGenerator.generateID(), taglia, colore, "disponibile");
+  const availability = formData.get("productAvailability") as "esaurito" | "disponibile";
+  return createProduct(tipo, IDGenerator.generateID(), taglia, colore, availability);
 }
 
 export function createProduct(tipo: "costume da bagno" | "pareo" | "cappello", ID: string, taglia: string, colore: string, stato: "esaurito" | "disponibile"): Prodotto {
