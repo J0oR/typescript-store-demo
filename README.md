@@ -39,7 +39,7 @@
 <img src="/src/imgs/app.gif" alt="layout" style="border-radius: 15px;">
 
 ######
-The project is designed to certify the student's skills in TypeScript by developing the operational structure of a fictional beachwear brand.
+The project is designed to certify the student's proficiency in TypeScript by developing the operational structure of a fictional beachwear brand.
 
 Specifically:
 - The **Product class** handles the creation of items and the assignment of clients to those products.
@@ -135,7 +135,7 @@ Follow the steps below to get your local copy of this app up and running. These 
 ## Contact
 
 
-[![LinkedIn](https://custom-icon-badges.demolab.com/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin-white&logoColor=fff)](https://www.linkedin.com/in/giovanni-ruocco-b3a5492a2)
+[![LinkedIn](https://custom-icon-badges.demolab.com/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin-white&logoColor=fff)](https://www.linkedin.com/in/giovanni-ruocco)
 
 [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/J0oR)
 
